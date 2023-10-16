@@ -127,7 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SceneAndBasicStuff.cpp" />
+    <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="scene.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="sceneHandler.cpp" />
+    <ClCompile Include="spriteObject.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sceneHandler.hpp" />
+    <ClInclude Include="scene.hpp" />
+    <ClInclude Include="gameObject.hpp" />
+    <ClInclude Include="spriteObject.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
