@@ -11,21 +11,16 @@
 std::string _headSprite = "Assets/Sprites/head.png";
 std::string _headHurtSprite = "Assets/Sprites/head_hurt.png";
 
+const int _windowWidth = 800;
+const int _windowHeight = 800;
+
 int main() {
-	sf::RenderWindow window(sf::VideoMode(800, 800), "SFML with Scenes!");
-	Scene scene1("scene01");
-
-	SpriteObject sprite("sprite1", _headHurtSprite);
-	scene1.addGameObject(sprite);
+	sf::RenderWindow window(sf::VideoMode(_windowWidth, _windowHeight), "SFML with Scenes!");
 	
-
-	PlayerObject player("player", _headSprite);
-	sprite.addChild(&player);
-	scene1.addGameObject(player);
-
+	Scene mainScene("scene01");
 
 	SceneHandler handler;
-	handler.addScene(scene1);
+	handler.addScene(mainScene);
 
 	while (window.isOpen()) {
 
@@ -36,7 +31,7 @@ int main() {
 				window.close();
 			}
 		}
-		s
+
 		window.clear();
 		handler.update();
 		handler.render(window);
