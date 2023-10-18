@@ -128,12 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="playerObject.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sceneHandler.cpp" />
     <ClCompile Include="spriteObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="playerObject.hpp" />
     <ClInclude Include="sceneHandler.hpp" />
     <ClInclude Include="scene.hpp" />
     <ClInclude Include="gameObject.hpp" />
