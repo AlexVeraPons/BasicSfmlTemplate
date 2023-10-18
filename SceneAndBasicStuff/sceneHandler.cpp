@@ -25,6 +25,7 @@ void SceneHandler::addScene(Scene& scene) {
 
 void SceneHandler::stackScene(std::string sceneName) {
     this->scenesStack.push(scenes[sceneName]);
+    scenesStack.top()->start();
 }
 
 void SceneHandler::popScene(void) {

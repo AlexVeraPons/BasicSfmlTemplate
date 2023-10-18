@@ -6,7 +6,6 @@
 #include "scene.hpp"
 #include "spriteObject.hpp"
 #include "sceneHandler.hpp"
-#include "playerObject.hpp"
 
 std::string _headSprite = "Assets/Sprites/head.png";
 std::string _headHurtSprite = "Assets/Sprites/head_hurt.png";
@@ -16,11 +15,12 @@ const int _windowHeight = 800;
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(_windowWidth, _windowHeight), "SFML with Scenes!");
-	
-	Scene mainScene("scene01");
+
+	Scene scene01("scene01");
+
 
 	SceneHandler handler;
-	handler.addScene(mainScene);
+	handler.addScene(scene01);
 
 	while (window.isOpen()) {
 
@@ -29,6 +29,14 @@ int main() {
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				window.close();
+			}
+
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if (event.key.code == sf::Keyboard::A)
+				{
+					handler.stackScene("scene02");
+				}
 			}
 		}
 
