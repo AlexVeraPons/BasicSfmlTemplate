@@ -1,4 +1,5 @@
 #include "scene.hpp"
+#include "gameObject.hpp"
 
 Scene::Scene(std::string identifier) : identifier(identifier) { }
 
@@ -16,7 +17,17 @@ void Scene::start()
     }
 }
 
+void Scene::handleEvent(const sf::Event& event, sf::RenderWindow& window)
+{
+    for (unsigned int i = 0; i < this->listOfGameObjects.size(); i++)
+    {
+		this->listOfGameObjects[i]->handleEvent(event, window);
+	}
+}
+
 void Scene::update() {
+    if(this->listOfGameObjects.size() == 0) return;
+
     for (auto& gameObject : listOfGameObjects) {
         gameObject->update();
     }

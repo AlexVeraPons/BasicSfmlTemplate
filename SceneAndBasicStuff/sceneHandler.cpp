@@ -16,6 +16,13 @@ void SceneHandler::update() {
     }
 }
 
+void SceneHandler::handleEvent(const sf::Event& evenet, sf::RenderWindow& window)
+{
+    if (this->scenesStack.size() != 0) {
+		this->scenesStack.top()->handleEvent(evenet, window);
+	}
+}
+
 void SceneHandler::addScene(Scene& scene) {
     this->scenes.emplace(scene.getIdentifier(), &scene);
     if (this->scenes.size() == 1) {

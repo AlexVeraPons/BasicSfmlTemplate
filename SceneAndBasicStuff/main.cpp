@@ -3,24 +3,34 @@
 #include <iostream>
 #include <string>
 
-#include "scene.hpp"
-#include "spriteObject.hpp"
-#include "sceneHandler.hpp"
+#include "TurnBasedGame.hpp"
+#include "main.h"
 
-std::string _headSprite = "Assets/Sprites/head.png";
-std::string _headHurtSprite = "Assets/Sprites/head_hurt.png";
+const int _windowWidth = 1280;
+const int _windowHeight = 720;
 
-const int _windowWidth = 800;
-const int _windowHeight = 800;
+const sf::Color _backgroundColor = sf::Color(128, 128, 128);
+
+const std::string _latoRegularFontPath = "Assets/Fonts/Lato-Regular.ttf";
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(_windowWidth, _windowHeight), "SFML with Scenes!");
 
-	Scene scene01("scene01");
-
-
+	sf::RenderWindow window(sf::VideoMode(_windowWidth, _windowHeight), "TurnBasedGame", sf::Style::Close);
 	SceneHandler handler;
-	handler.addScene(scene01);
+
+	sf::Font font;
+	font.loadFromFile(_latoRegularFontPath);
+
+	sceneSetup(font, handler, window);
+	gameLoop(window, handler);
+
+	return 0;
+}
+
+void gameLoop(sf::RenderWindow& window, SceneHandler& handler)
+{
+	ScoreFileIO scoreFileIO("Assets/Savedata/score.txt");
+
 
 	while (window.isOpen()) {
 
@@ -31,23 +41,69 @@ int main() {
 				window.close();
 			}
 
-			if (event.type == sf::Event::KeyPressed)
-			{
-				if (event.key.code == sf::Keyboard::A)
-				{
-					handler.stackScene("scene02");
-				}
-			}
+			handler.handleEvent(event, window);
 		}
 
-		window.clear();
+
+		window.clear(_backgroundColor);
 		handler.update();
 		handler.render(window);
 		window.display();
 	}
-
-	return 0;
 }
+
+void sceneSetup(sf::Font& font, SceneHandler& handler, sf::RenderWindow& window)
+{
+	Scene mainScreen("mainScreen");
+	Scene gameScreen("gameScreen");
+
+	mainScreenSetup(font, handler, mainScreen, gameScreen, window);
+
+	handler.addScene(mainScreen);
+	handler.addScene(gameScreen);
+}
+
+void mainScreenSetup(sf::Font& font, SceneHandler& handler, Scene& mainScreen, Scene& gameScreen, sf::RenderWindow& window)
+{
+	sf::Vector2f mainScreenButtonsize(200, 100);
+
+	//playbutton
+	TextHighliteButton* play = new TextHighliteButton("play", font, "Play", mainScreenButtonsize);
+	play->setPosition(sf::Vector2f(100, 100));
+	play->setHighliteFillColor(sf::Color::Transparent);
+	play->setHighliteTextColor(sf::Color::Cyan);
+	play->setOutlineColor(sf::Color::Transparent);
+	play->setOnClickAction([&handler, &mainScreen, &gameScreen]() {
+		handler.stackScene("gameScreen");
+		});
+	mainScreen.addGameObject(*play);
+
+
+	//erasedata button
+	//TODO: make the save class and make this button work
+	TextHighliteButton* eraseData = new TextHighliteButton("eraseData", font, "Erase Data", mainScreenButtonsize);
+	eraseData->setPosition(sf::Vector2f(100, 200));
+	eraseData->setHighliteFillColor(sf::Color::Transparent);
+	eraseData->setHighliteTextColor(sf::Color::Cyan);
+	eraseData->setOutlineColor(sf::Color::Transparent);
+	mainScreen.addGameObject(*eraseData);
+
+
+
+	//quitbutton
+	TextHighliteButton* quit = new TextHighliteButton("quit", font, "Quit", mainScreenButtonsize);
+	quit->setPosition(sf::Vector2f(100, 300));
+	quit->setHighliteFillColor(sf::Color::Transparent);
+	quit->setHighliteTextColor(sf::Color::Cyan);
+	quit->setOutlineColor(sf::Color::Transparent);
+	quit->setOnClickAction([&window]() {
+		window.close();
+		});
+	mainScreen.addGameObject(*quit);
+
+}
+
+
 
 
 

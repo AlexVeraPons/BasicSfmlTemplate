@@ -4,35 +4,49 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
-
-#include "scene.hpp"
 #include <functional>
+
 
 typedef std::function<void()> buttonAction;
 
 class Button : public GameObject {
 
-    private:
-        sf::Text text;
-        sf::Font& font;
-        sf::RectangleShape shape;
-        std::string buttonText;
+protected:
+	sf::Text text;
+	sf::Font& font;
+	sf::RectangleShape shape;
+	std::string buttonText;
+	bool startedHovering = false;
 
-        // buttonAction action;
-        std::function<void()> action;
-    public:
-        Button(std::string identifier, sf::Font& font, std::string buttonText, 
-                sf::Vector2f size, sf::Color color);
-        ~Button();
+	buttonAction action;
 
-        void handleEvent(const sf::Event& event, sf::RenderWindow& window) override;
-        virtual void onClick();
+public:
+	Button(std::string identifier, sf::Font& font, std::string buttonText,
+		sf::Vector2f size);
+	~Button();
 
-        void update() override;
-        void render(sf::RenderWindow& window) override;
-        // void setButtonAction(buttonAction action);
-        void setButtonAction(std::function<void()> action);
-        void setCharacterSize(const int size);
-        void setPosition(const sf::Vector2f position);
+
+public:
+	void handleEvent(const sf::Event& event, sf::RenderWindow& window) override;
+	virtual void onClick();
+	
+	void update() override;
+	void render(sf::RenderWindow& window) override;
+	
+	void setOnClickAction(buttonAction action);
+	void setCharacterSize(const int size);
+	void setPosition(const sf::Vector2f position);
+	void setFillColor(const sf::Color color);
+	void setOutlineColor(const sf::Color color);
+	void setOutlineThickness(const float thickness);
+	void setTextColor(const sf::Color color);
+	void setTextSize(const int size);
+
+
+protected:
+	virtual void onHover() = 0;
+	virtual void onHoverEnter() = 0;
+	virtual void onHoverExit() = 0;
+
 };
 

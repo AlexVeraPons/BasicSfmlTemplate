@@ -128,18 +128,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="button.cpp" />
-    <ClCompile Include="character.cpp" />
     <ClCompile Include="gameObject.cpp" />
-    <ClCompile Include="quitButton.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sceneHandler.cpp" />
+    <ClCompile Include="scoreboard.cpp" />
+    <ClCompile Include="scoreEntry.cpp" />
+    <ClCompile Include="scoreFileIO.cpp" />
+    <ClCompile Include="textHighlitButton.cpp" />
     <ClCompile Include="textObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="main.h" />
+    <ClInclude Include="scoreboard.hpp" />
+    <ClInclude Include="scoreEntry.hpp" />
+    <ClInclude Include="scoreFileIO.hpp" />
+    <ClInclude Include="textHighliteButton.hpp" />
     <ClInclude Include="button.hpp" />
-    <ClInclude Include="character.hpp" />
-    <ClInclude Include="quitButton.hpp" />
+    <ClInclude Include="TurnBasedGame.hpp" />
     <ClInclude Include="sceneHandler.hpp" />
     <ClInclude Include="scene.hpp" />
     <ClInclude Include="gameObject.hpp" />

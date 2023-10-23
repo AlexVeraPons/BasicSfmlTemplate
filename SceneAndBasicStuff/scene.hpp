@@ -17,6 +17,8 @@ public:
 
 public:
     void addGameObject(GameObject& object);
+
+    void handleEvent(const sf::Event& event, sf::RenderWindow& window);
     void update();
     void render(sf::RenderWindow& window);
     void start();
