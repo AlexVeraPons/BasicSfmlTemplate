@@ -12,6 +12,7 @@ class GameObject{
         virtual ~GameObject();
     public:
         virtual void handleEvent(const sf::Event& event, sf::RenderWindow& window) { };
+        virtual void start() = 0;
         virtual void update() = 0;
         virtual void render(sf::RenderWindow& window) = 0;
         std::string getIdentifier() const;
