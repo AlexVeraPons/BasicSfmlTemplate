@@ -17,3 +17,9 @@
 #include "scoreFileIO.hpp"
 #include "scoreboard.hpp"
 
+#include "characterData.hpp"
+#include "characterStats.hpp"
+#include "fightController.hpp"
+#include "fightCharacter.hpp"
+#include "turnDecider.hpp"
+

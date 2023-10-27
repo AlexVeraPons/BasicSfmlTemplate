@@ -51,6 +51,15 @@
     <ClCompile Include="characterData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fightController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fightCharacter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="turnDecider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sceneHandler.hpp">
@@ -68,7 +77,7 @@
     <ClInclude Include="button.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TurnBasedGame.hpp">
+    <ClInclude Include="turnBasedGame.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="textHighliteButton.hpp">
@@ -90,6 +99,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="characterStats.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fightController.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fightCharacter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turnDecider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

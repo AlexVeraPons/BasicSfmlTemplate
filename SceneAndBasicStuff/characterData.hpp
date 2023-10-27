@@ -8,6 +8,7 @@ struct CharacterData
 	sf::Sprite sprite;
 	CharacterStats stats;
 
+	CharacterData();
 	CharacterData(std::string name, sf::Sprite sprite, CharacterStats stats);
 	CharacterData(std::string name, sf::Sprite sprite, unsigned int attack, unsigned int speed, unsigned int health);
 };

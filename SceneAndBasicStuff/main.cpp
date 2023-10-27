@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
-#include "TurnBasedGame.hpp"
 #include "main.h"
+#include "turnBasedGame.hpp"
 
 const int _windowWidth = 1280;
 const int _windowHeight = 720;
