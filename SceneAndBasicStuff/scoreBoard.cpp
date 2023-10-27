@@ -5,7 +5,7 @@
 Scoreboard::Scoreboard(std::string identifier, sf::Vector2f position, std::string scoreFilePath, sf::Font& font) : GameObject(identifier, position), _font(font)
 {
 	_scoreFileIO = new ScoreFileIO(scoreFilePath);
-	_scoreEntries = _scoreFileIO->getTopScores(_scoreAmount);
+	refresh();
 }
 
 Scoreboard::~Scoreboard()
@@ -15,8 +15,7 @@ Scoreboard::~Scoreboard()
 
 void Scoreboard::start()
 {
-	_scoreFileIO->reloadScores();
-	_scoreEntries = _scoreFileIO->getTopScores(_scoreAmount);
+	refresh();
 }
 
 void Scoreboard::update()
@@ -41,10 +40,22 @@ void Scoreboard::refresh()
 {
 	_scoreFileIO->reloadScores();
 	_scoreEntries = _scoreFileIO->getTopScores(_scoreAmount);
+	fillRestWithPlaceholders();
 }
 
 void Scoreboard::clearScores()
 {
 	_scoreFileIO->clearScores();
 	_scoreEntries = _scoreFileIO->getTopScores(_scoreAmount);
+}
+
+void Scoreboard::fillRestWithPlaceholders()
+{
+	if (_scoreAmount <= _scoreEntries.size()) return;
+
+	unsigned int amountOfPlaceholders = _scoreAmount - _scoreEntries.size();
+	for (unsigned int i = 0; i < amountOfPlaceholders; i++)
+	{
+		_scoreEntries.push_back(new ScoreEntry("N/A", 0));
+	}
 }

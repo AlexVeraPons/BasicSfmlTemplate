@@ -25,5 +25,8 @@ public:
 	void render(sf::RenderWindow& window) override;
 	void refresh();
 	void clearScores();
+
+private:
+	void fillRestWithPlaceholders();
 };
 
