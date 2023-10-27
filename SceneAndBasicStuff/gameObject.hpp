@@ -5,8 +5,11 @@
 class GameObject {
 private:
 	const std::string identifier;
+protected:
+	sf::Vector2f position;
 public:
 	GameObject(std::string identifier);
+	GameObject(std::string identifier, sf::Vector2f position);
 	GameObject(const GameObject& other);
 
 	virtual ~GameObject();
@@ -24,8 +27,8 @@ public:
 		 Called whenever a scene starts.
 	*/
 	virtual void start();
-
 	virtual void update() = 0;
 	virtual void render(sf::RenderWindow& window) = 0;
+	virtual void setPosition(const sf::Vector2f position);
 	std::string getIdentifier() const;
 };

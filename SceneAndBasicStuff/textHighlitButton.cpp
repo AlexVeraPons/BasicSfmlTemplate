@@ -50,6 +50,10 @@ void TextHighliteButton::setGrowFactor(const float factor)
 	growFactor = factor;
 }
 
+void TextHighliteButton::update()
+{
+}
+
 void TextHighliteButton::onClick()
 {
 	Button::onClick();
@@ -57,5 +61,4 @@ void TextHighliteButton::onClick()
 
 void TextHighliteButton::start()
 {
-	printf("TextHighliteButton::start()\n");
 }

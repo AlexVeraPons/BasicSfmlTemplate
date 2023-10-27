@@ -75,6 +75,8 @@ void Button::setCharacterSize(const int size) {
 }
 
 void Button::setPosition(const sf::Vector2f position) {
+	GameObject::setPosition(position);
+	
 	this->shape.setPosition(position);
 	sf::Vector2f size = this->shape.getSize();
 	sf::Vector2f centerButton(position.x + (size.x / 2.0f), position.y + (size.y / 2.0f));

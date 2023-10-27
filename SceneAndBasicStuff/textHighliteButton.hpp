@@ -28,6 +28,7 @@ public:
 
 private:
 	// Inherited via Button
+	void update() override;
 	void onClick() override;
 	void onHover() override;
 	void onHoverEnter() override;

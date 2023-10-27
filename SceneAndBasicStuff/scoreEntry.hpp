@@ -7,15 +7,15 @@ struct ScoreEntry
 
 	bool operator<(const ScoreEntry& other) const
 	{
-		return Score < other.Score;
+		return score < other.score;
 	}
 
 	bool operator>(const ScoreEntry& other) const
 	{
-		return Score > other.Score;
+		return score > other.score;
 	}
 
-	std::string Name;
-	unsigned int Score;
+	std::string name;
+	unsigned int score;
 };
 

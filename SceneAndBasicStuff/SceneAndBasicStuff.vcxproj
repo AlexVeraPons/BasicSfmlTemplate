@@ -128,6 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="button.cpp" />
+    <ClCompile Include="characterData.cpp" />
+    <ClCompile Include="characterStats.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -139,10 +141,12 @@
     <ClCompile Include="textObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="characterData.hpp" />
     <ClInclude Include="main.h" />
     <ClInclude Include="scoreboard.hpp" />
     <ClInclude Include="scoreEntry.hpp" />
     <ClInclude Include="scoreFileIO.hpp" />
+    <ClInclude Include="characterStats.hpp" />
     <ClInclude Include="textHighliteButton.hpp" />
     <ClInclude Include="button.hpp" />
     <ClInclude Include="TurnBasedGame.hpp" />

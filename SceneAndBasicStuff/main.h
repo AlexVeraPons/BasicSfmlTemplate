@@ -1,7 +1,4 @@
-#pragma once
-
-void sceneSetup(sf::Font& font, SceneHandler& handler, sf::RenderWindow& window);
-
-void mainScreenSetup(sf::Font& font, SceneHandler& handler, Scene& mainScreen, Scene& gameScreen, sf::RenderWindow& window);
-
-void gameLoop(sf::RenderWindow& window, SceneHandler& handler);
+void SetupWindow(sf::RenderWindow& window);
+void SetupScenes(SceneHandler& handler, sf::Font& font, sf::RenderWindow& window);
+void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& hanlder, sf::RenderWindow& window);
+void GameLoop(sf::RenderWindow& window, SceneHandler& handler);

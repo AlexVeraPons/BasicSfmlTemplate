@@ -14,65 +14,84 @@ ScoreFileIO::ScoreFileIO(std::string scoreFilePath)
 	reloadScores();
 }
 
-ScoreFileIO::~ScoreFileIO()
-{
-}
+ScoreFileIO::~ScoreFileIO() { }
 
 void ScoreFileIO::reloadScores()
 {
-	clearScores();
+	clearScoreList();
 
-	std::ifstream file(_scoreFilePath);
-
+	std::ifstream file("Savedata/score.txt"); //TODO: Make this go back to _scoreFilePath and check while the second time it gets called its empty
 	std::string line;
-	
-	if (!file)
-	{
-		throw std::runtime_error("Something went wrong!");
+
+	if (!file.is_open()) {
+		std::cout << "Could not open file: " << _scoreFilePath << std::endl;
+		return;
 	}
 
 	while (std::getline(file, line)) {
-		
+
 		std::istringstream iss(line);
 
 		std::string name;
-		int score;  
+		int score;
 
 		iss >> name >> score;
 
 		_scoreEntries.push_back(new ScoreEntry(name, score));
 	}
 
+	file.close();
+
 	orderScores();
 }
 
+//check if this works when i know how to use the new pointer stuff
+void ScoreFileIO::addScore(std::string name, unsigned int score)
+{
+	_scoreEntries.push_back(new ScoreEntry(name, score));
+	orderScores();
+	saveScores();
+}
+
+
 void ScoreFileIO::addScore(ScoreEntry newScore)
 {
-	_scoreEntries.push_back(new ScoreEntry(newScore.Name, newScore.Score));
+	_scoreEntries.push_back(new ScoreEntry(newScore.name, newScore.score));
 	orderScores();
 	saveScores();
 }
 
 std::vector<ScoreEntry*> ScoreFileIO::getScoreList() const
 {
-	return std::vector<ScoreEntry*>();
+	return _scoreEntries;
 }
 
 std::vector<ScoreEntry*> ScoreFileIO::getTopScores(int amount) const
 {
-	if (int(_scoreEntries.size()) < amount) { return _scoreEntries; }
+	if (int(_scoreEntries.size()) < amount) {
+		return _scoreEntries;
+	}
 
 	std::vector<ScoreEntry*> topScores;
 
 	for (int i = 0; i < amount; i++)
 	{
+		printf("%d\n", i);
 		topScores.push_back(_scoreEntries[i]);
 	}
+
+	return topScores;
 }
 
 ScoreEntry* ScoreFileIO::getTopScore() const
 {
 	return _scoreEntries[0];
+}
+
+void ScoreFileIO::clearScores()
+{
+	clearScoreList();
+	saveScores();
 }
 
 void ScoreFileIO::orderScores()
@@ -92,16 +111,11 @@ void ScoreFileIO::saveScores()
 
 	for (int i = 0; i < _scoreEntries.size(); i++)
 	{
-		*_scoreFile << _scoreEntries[i]->Name << " " << _scoreEntries[i]->Score << std::endl;
+		*_scoreFile << _scoreEntries[i]->name << " " << _scoreEntries[i]->score << std::endl;
 	}
 }
 
-void ScoreFileIO::clearScores() //TODO: Make sure this is needed for garbage collection
+void ScoreFileIO::clearScoreList() //TODO: Make sure this is needed for garbage collection
 {
-	for (int i = 0; i < _scoreEntries.size(); i++)
-	{
-		delete _scoreEntries[i];
-	}
-
 	_scoreEntries.clear();
 }

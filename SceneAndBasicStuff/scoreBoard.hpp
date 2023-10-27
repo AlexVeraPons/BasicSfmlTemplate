@@ -3,13 +3,19 @@
 #include "gameObject.hpp"
 #include "scoreFileIO.hpp"
 
-class Scoreboard : GameObject
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Font.hpp>
+
+class Scoreboard : public GameObject
 {
 private:
-	int const _scoreAmount = 5;
-	ScoreFileIO& _scoreFileIO;
+	unsigned int const _scoreAmount = 5;
+	float const _scoreboardTextOffset = 50;
+	sf::Font& _font;
+	ScoreFileIO* _scoreFileIO; //update when i get the next lesson on smart pointers
+	std::vector<ScoreEntry*> _scoreEntries;
 public:
-	Scoreboard(ScoreFileIO scoreFileIO); 
+	Scoreboard(std::string identifier, sf::Vector2f position, std::string scoreFilePath,sf::Font& font); 
 	~Scoreboard();
 
 public:
@@ -17,5 +23,7 @@ public:
 	void start() override;
 	void update() override;
 	void render(sf::RenderWindow& window) override;
+	void refresh();
+	void clearScores();
 };
 

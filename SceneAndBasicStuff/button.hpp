@@ -32,10 +32,10 @@ public:
 	
 	void update() override;
 	void render(sf::RenderWindow& window) override;
+	void setPosition(const sf::Vector2f position) override;
 	
 	void setOnClickAction(buttonAction action);
 	void setCharacterSize(const int size);
-	void setPosition(const sf::Vector2f position);
 	void setFillColor(const sf::Color color);
 	void setOutlineColor(const sf::Color color);
 	void setOutlineThickness(const float thickness);
