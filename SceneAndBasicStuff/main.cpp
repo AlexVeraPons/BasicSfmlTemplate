@@ -10,6 +10,11 @@ const sf::Color _backgroundColor = sf::Color(128, 128, 128);
 const std::string _latoRegularFontPath = "Assets/Fonts/Lato-Regular.ttf";
 const std::string _scoreFilePath = "Savedata/score.txt";
 
+void SetupWindow(sf::RenderWindow& window);
+void SetupScenes(SceneHandler& handler, sf::Font& font, sf::RenderWindow& window);
+void SetupGameScreen(Scene* gameScreen, sf::Font font);
+void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& hanlder, sf::RenderWindow& window);
+void GameLoop(sf::RenderWindow& window, SceneHandler& handler);
 
 int main() {
 	sf::RenderWindow window;
@@ -33,10 +38,39 @@ void SetupScenes(SceneHandler& handler, sf::Font& font, sf::RenderWindow& window
 	Scene* gameScreen = new Scene("gameScreen");
 
 	SetupMainScreen(font, mainScreen, handler, window);
+	SetupGameScreen(gameScreen, font);
+
 
 	handler.addScene(*mainScreen);
 	handler.addScene(*gameScreen);
 }
+
+void SetupGameScreen(Scene* gameScreen, sf::Font font)
+{
+	FightController* fightController = new FightController();
+	CharacterData playerData("Player", sf::Sprite(), 100, 20, 20);
+	CharacterData enemyData("Enemy", sf::Sprite(), 100, 19, 19);
+
+	FightCharacter player(playerData);
+	FightCharacter enemy(enemyData);
+
+	fightController->setupFight(player, enemy);
+	gameScreen->addGameObject(*fightController);
+
+	ActionSelectorUI* actionSelectorUI = new ActionSelectorUI("actionSelectorUI", sf::Vector2f(0, _windowHeight - _windowHeight / 6), _windowWidth, _windowHeight / 6);
+	TextHighliteButton* attackButton = new TextHighliteButton("attackButton", font, "Attack", sf::Vector2f(_windowWidth / 3, _windowHeight / 6));
+	TextHighliteButton* defendButton = new TextHighliteButton("defendButton", font, "Defend", sf::Vector2f(_windowWidth / 3, _windowHeight / 6));
+	TextHighliteButton* healButton = new TextHighliteButton("healButton", font, "Heal", sf::Vector2f(_windowWidth / 3, _windowHeight / 6));
+	attackButton->setHighliteFillColor(sf::Color::Blue);
+	defendButton->setHighliteFillColor(sf::Color::Blue);
+	healButton->setHighliteFillColor(sf::Color::Blue);
+	actionSelectorUI->addButton(*attackButton);
+	actionSelectorUI->addButton(*defendButton);
+	actionSelectorUI->addButton(*healButton);
+
+	gameScreen->addGameObject(*actionSelectorUI);
+}
+
 
 void GameLoop(sf::RenderWindow& window, SceneHandler& handler) {
 	while (window.isOpen()) {
@@ -96,6 +130,7 @@ void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, s
 		});
 	mainScreen->addGameObject(*quit);
 }
+
 
 
 

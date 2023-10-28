@@ -16,6 +16,7 @@ private:
 	float growFactor = 1.1f;
 
 public:
+	TextHighliteButton();
 	TextHighliteButton(std::string identifier, sf::Font& font, std::string buttonText,
 		sf::Vector2f size);
 	~TextHighliteButton();

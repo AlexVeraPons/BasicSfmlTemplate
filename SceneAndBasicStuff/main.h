@@ -1,4 +1,6 @@
-void SetupWindow(sf::RenderWindow& window);
-void SetupScenes(SceneHandler& handler, sf::Font& font, sf::RenderWindow& window);
-void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& hanlder, sf::RenderWindow& window);
-void GameLoop(sf::RenderWindow& window, SceneHandler& handler);
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
+
+

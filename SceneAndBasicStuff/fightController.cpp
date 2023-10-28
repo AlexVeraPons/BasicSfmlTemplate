@@ -1,55 +1,45 @@
 #include "fightController.hpp"
 #include "fightCharacter.hpp"
+#include "turnDecider.hpp"
 
 
-FightController::FightController(): activeFighter(nullptr)
+FightController::FightController() : turnDecider(fighters[0], fighters[1]), GameObject() { }
+
+FightController::~FightController() { }
+
+void FightController::start()
 {
+	nextTurn();
 }
 
-FightController::~FightController()
+void FightController::setupFight(FightCharacter fighterA, FightCharacter fighterB)
 {
-}
 
-
-void FightController::setupFight(FightCharacter& fighterA, FightCharacter& fighterB)
-{
-	/*
-		* fighters[0] = fighterA;
-			* fighters[1] = fighterB;
-				* 
-					* turnDecider.setFighters(fighters[0],fighters[1]);
-						* 
-							* nextTurn();
-								*/
+	turnDecider.setFighters(fighters[0], fighters[1]);
 }
 
 void FightController::executeMove()
 {
-	/*
-	* has a reference to the move done
-	* MoveExecuter(move,target);
-	*
-	* if(target.isDead() && target is npc)
-	* {
-	*	Win();
-	* }
-	* else if(target.isDead() && target is player)
-	* {
-	*	Lose();
-	* }
-	* 
-	* nextTurn();
-	*/
+	//MoveExecuter(move, target);
+
+	//if (target.isDead() && target is npc)
+	//{
+	//	Win();
+	//}
+	//else if (target.isDead() && target is player)
+	//{
+	//	Lose();
+	//}
+
+	nextTurn();
 }
 
 
 void FightController::nextTurn()
 {
-	/*
-	* turnDecider.nextTurn();
-	* activeFighter= turnDecider.getTurnCharacter();
-	* activeFighter->turnStart();
-	*/
+	turnDecider.nextTurn();
+	activeFighter = &turnDecider.getTurnCharacter();
+	printf("Next turn: %s\n", activeFighter->getName().c_str());
 }
 
 void FightController::win()

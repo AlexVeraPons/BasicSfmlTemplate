@@ -8,6 +8,10 @@ private:
 protected:
 	sf::Vector2f position;
 public:
+	/*
+		Default constructor. Sets the identifier to "GameObject" and the position to (0,0).
+	*/
+	GameObject();
 	GameObject(std::string identifier);
 	GameObject(std::string identifier, sf::Vector2f position);
 	GameObject(const GameObject& other);
@@ -27,8 +31,8 @@ public:
 		 Called whenever a scene starts.
 	*/
 	virtual void start();
-	virtual void update() = 0;
-	virtual void render(sf::RenderWindow& window) = 0;
+	virtual void update();
+	virtual void render(sf::RenderWindow& window);
 	virtual void setPosition(const sf::Vector2f position);
 	std::string getIdentifier() const;
 };

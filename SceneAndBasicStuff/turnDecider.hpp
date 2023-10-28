@@ -16,5 +16,8 @@ public:
 	void setFighters(FightCharacter& _character1, FightCharacter& _character2);
 	void nextTurn();
 	FightCharacter& getTurnCharacter();
+
+private:
+	void updateQueuePositions(float distance);
 };
 

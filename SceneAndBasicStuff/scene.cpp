@@ -1,7 +1,7 @@
 #include "scene.hpp"
 #include "gameObject.hpp"
 
-Scene::Scene(std::string identifier) : identifier(identifier) { }
+Scene::Scene(std::string identifier) : identifier(identifier), started(false) { }
 
 Scene::~Scene() { }
 

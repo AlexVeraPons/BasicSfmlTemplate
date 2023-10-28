@@ -54,7 +54,6 @@ void Button::handleEvent(const sf::Event& event, sf::RenderWindow& window) {
 			startedHovering = false;
 		}
 	}
-
 }
 
 void Button::update() { }
@@ -106,6 +105,11 @@ void Button::setTextColor(const sf::Color color)
 void Button::setTextSize(const int size)
 {
 	this->text.setCharacterSize(size);
+}
+
+void Button::setShapeSize(sf::Vector2f size)
+{
+	shape.setSize(size);
 }
 
 void Button::onClick() {

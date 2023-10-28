@@ -18,8 +18,12 @@
 #include "scoreboard.hpp"
 
 #include "characterData.hpp"
-#include "characterStats.hpp"
 #include "fightController.hpp"
 #include "fightCharacter.hpp"
 #include "turnDecider.hpp"
 
+#include "actionSelectorUI.hpp"
+#include "textZoneUI.hpp"
+
+#include "move.hpp"
+#include "attackMove.hpp"

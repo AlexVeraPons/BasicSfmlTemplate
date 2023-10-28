@@ -3,16 +3,20 @@
 FightCharacter::FightCharacter(CharacterData characterData)
 {
 	_characterData = characterData;
-	_queuePosition = 100-_characterData.stats.speed;
+	_queuePosition = 100 - _characterData.stats.speed;
+	printf("%s's queue position is %f\n", _characterData.name.c_str(), _queuePosition);
 }
 
-FightCharacter::FightCharacter(CharacterData characterData)
+FightCharacter::FightCharacter(const FightCharacter& other)
 {
+	_characterData = other._characterData;
+	_queuePosition = other._queuePosition;
+	_isActive = other._isActive;
 }
 
-FightCharacter::~FightCharacter()
-{
-}
+FightCharacter::FightCharacter() : FightCharacter(CharacterData()) { }
+
+FightCharacter::~FightCharacter() { }
 
 int FightCharacter::getAttack() const
 {
@@ -27,6 +31,27 @@ int FightCharacter::getSpeed() const
 int FightCharacter::getHealth() const
 {
 	return _characterData.stats.health;
+}
+
+std::string FightCharacter::getName() const
+{
+	return _characterData.name;
+}
+
+bool FightCharacter::isActive() const
+{
+	return _isActive;
+}
+
+void FightCharacter::startTurn()
+{
+	printf("%s's turn!\n", _characterData.name.c_str());
+	_isActive = true;
+}
+
+void FightCharacter::endTurn()
+{
+	_isActive = false;
 }
 
 void FightCharacter::receiveDamage(unsigned int damage)
@@ -56,5 +81,5 @@ float FightCharacter::getQueuePosition() const
 
 void FightCharacter::advanceQueuePosition(float amount)
 {
-	_queuePosition -= amount;
+	_queuePosition += amount;
 }

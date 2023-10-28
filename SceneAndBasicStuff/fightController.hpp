@@ -2,18 +2,21 @@
 #include <vector>
 #include "gameObject.hpp"
 #include "fightCharacter.hpp"
+#include "turnDecider.hpp"
 
-class FightController
+class FightController : public GameObject
 {
 private:
 	FightCharacter fighters[2];
-	FightCharacter* activeFighter;
+	FightCharacter* activeFighter = nullptr;
+	TurnDecider turnDecider;
 public:
 	FightController();
 	~FightController();
 
 public:
-	void setupFight(FightCharacter& fighterA, FightCharacter& fighterB);
+	void start();
+	void setupFight(FightCharacter fighterA, FightCharacter fighterB);
 	void executeMove();
 	void nextTurn();
 
