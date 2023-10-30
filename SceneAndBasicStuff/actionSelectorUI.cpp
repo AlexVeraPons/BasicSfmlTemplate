@@ -55,8 +55,8 @@ void ActionSelectorUI::setButtonColor(sf::Color color)
 
 void ActionSelectorUI::setupButtonPositions()
 {
-	int columns = _buttons.size() > 1 ? 2 : 1;
-	int rows = (_buttons.size() + 1) / 2;
+	int rows = _buttons.size() > 1 ? 2 : 1;
+	int columns = (_buttons.size() + 1) / 2;
 	float buttonHeight = _height / rows;
 	float buttonWidth = _width / columns;
 
@@ -70,11 +70,10 @@ void ActionSelectorUI::setupButtonPositions()
 		_buttons[i]->setPosition(sf::Vector2f(buttonXPosition, buttonYPosition));
 
 		if (i == _buttons.size()-1  && _buttons.size() % 2 != 0) {
-			printf("last button\n");
 			_buttons[i]->setShapeSize(sf::Vector2f(buttonWidth, _height));
 		}
 		else {
-			_buttons[i]->setShapeSize(sf::Vector2f(_width - buttonWidth, buttonHeight));
+			_buttons[i]->setShapeSize(sf::Vector2f(buttonWidth, buttonHeight));
 		}
 	}
 }

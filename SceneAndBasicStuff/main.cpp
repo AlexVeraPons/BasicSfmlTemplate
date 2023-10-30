@@ -44,59 +44,6 @@ void SetupScenes(SceneHandler& handler, sf::Font& font, sf::RenderWindow& window
 	handler.addScene(*gameScreen);
 }
 
-void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen)
-{
-	FightController* fightController = new FightController();
-	CharacterData playerData("Player", sf::Sprite(), 100, 20, 20);
-	CharacterData enemyData("Enemy", sf::Sprite(), 100, 19, 19);
-
-	FightCharacter enemy(enemyData);
-	FightCharacter player(playerData);
-
-	fightController->setupFight(player, enemy);
-	gameScreen->addGameObject(*fightController);
-
-	//print the font name
-	printf("Font name: %s\n", font.getInfo().family.c_str());
-
-	ActionSelectorUI* actionSelectorUI = new ActionSelectorUI("actionSelectorUI", sf::Vector2f(0.0f,0.0f), _windowWidth, _windowHeight);
-
-	sf::Vector2f mainScreenButtonsize = sf::Vector2f(200, 100);
-	TextHighliteButton* play = new TextHighliteButton("play", font, "2", mainScreenButtonsize);
-	play->setPosition(sf::Vector2f(100, 100));
-	play->setHighliteTextColor(sf::Color::Cyan);
-	play->setHighliteFillColor(sf::Color::Blue);
-	play->setOutlineColor(sf::Color::Transparent);
-	play->setOnClickAction([&]() {  // capture by value if you don't want to capture the pointers
-		});
-
-	// erase data button
-	TextHighliteButton* eraseData = new TextHighliteButton("eraseData", font, "3 Data", mainScreenButtonsize);
-	eraseData->setPosition(sf::Vector2f(100, 200));
-	eraseData->setHighliteTextColor(sf::Color::Cyan);
-	eraseData->setOutlineColor(sf::Color::Transparent);
-	eraseData->setHighliteFillColor(sf::Color::Blue);
-	eraseData->setOnClickAction([=]() {
-		});
-
-	// quit button
-	TextHighliteButton* quit = new TextHighliteButton("quit", font, "4", mainScreenButtonsize);
-	quit->setPosition(sf::Vector2f(100, 300));
-	quit->setHighliteTextColor(sf::Color::Cyan);
-	quit->setOutlineColor(sf::Color::Transparent);
-	quit->setHighliteFillColor(sf::Color::Blue);
-	quit->setOnClickAction([&]() {
-		printf("Quit button clicked\n");
-		});
-
-	actionSelectorUI->addButton(play);
-	actionSelectorUI->addButton(eraseData);
-	actionSelectorUI->addButton(quit);
-
-	gameScreen->addGameObject(*actionSelectorUI);
-}
-
-
 void GameLoop(sf::RenderWindow& window, SceneHandler& handler) {
 	while (window.isOpen()) {
 		sf::Event event;
@@ -157,13 +104,7 @@ void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, s
 
 }
 
+void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen)
+{
 
-
-
-
-
-
-
-
-
-
+}
