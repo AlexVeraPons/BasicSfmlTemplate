@@ -13,7 +13,7 @@ ActionSelectorUI::~ActionSelectorUI() { }
 void ActionSelectorUI::start()
 {
 	setupButtonPositions();
-	for (Button* button : _buttons)
+	for (auto& button : _buttons)
 	{
 		button->start();
 	}
@@ -21,7 +21,7 @@ void ActionSelectorUI::start()
 
 void ActionSelectorUI::update()
 {
-	for (Button* button : _buttons)
+	for (auto&  button : _buttons)
 	{
 		button->update();
 	}
@@ -29,19 +29,7 @@ void ActionSelectorUI::update()
 
 void ActionSelectorUI::render(sf::RenderWindow& window)
 {
-	//render a grey background for the buttons
-	sf::RectangleShape background(sf::Vector2f(_width, _height));
-	background.setPosition(this->position);
-	background.setFillColor(sf::Color::Magenta);
-	window.draw(background);
-
-	//render a square in the origin of the action selector
-	sf::RectangleShape origin(sf::Vector2f(10, 10));
-	origin.setPosition(this->position);
-	origin.setFillColor(sf::Color::Blue);
-	window.draw(origin);
-
-	for (Button* button : _buttons)
+	for (auto& button : _buttons)
 	{
 		button->render(window);
 	}
@@ -49,15 +37,15 @@ void ActionSelectorUI::render(sf::RenderWindow& window)
 
 void ActionSelectorUI::handleEvent(const sf::Event& event, sf::RenderWindow& window)
 {
-	for (Button* button : _buttons)
+	for (auto& button : _buttons)
 	{
 		button->handleEvent(event, window);
 	}
 }
 
-void ActionSelectorUI::addButton(Button* button)
+void ActionSelectorUI::addButton(std::unique_ptr<Button> button)
 {
-	_buttons.push_back(button);
+	_buttons.push_back(std::move(button));
 }
 
 void ActionSelectorUI::setButtonColor(sf::Color color)
@@ -87,5 +75,7 @@ void ActionSelectorUI::setupButtonPositions()
 		else {
 			_buttons[i]->setShapeSize(sf::Vector2f(buttonWidth, buttonHeight));
 		}
+
+		_buttons[i]->centerText();
 	}
 }

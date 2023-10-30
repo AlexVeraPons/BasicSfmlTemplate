@@ -42,6 +42,8 @@ public:
 	void setTextColor(const sf::Color color);
 	void setTextSize(const int size);
 	void setShapeSize(sf::Vector2f size);
+	void setBackgroundColor(const sf::Color color);
+	void centerText();
 
 
 protected:

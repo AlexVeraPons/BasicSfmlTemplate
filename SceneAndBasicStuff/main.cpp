@@ -58,6 +58,7 @@ void GameLoop(sf::RenderWindow& window, SceneHandler& handler) {
 		handler.render(window);
 		window.display();
 	}
+	handler.onDisable();
 }
 
 void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, sf::RenderWindow& window)
@@ -109,7 +110,18 @@ void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, s
 
 void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen)
 {
-	//set action selector ui into a quarter of the screen in height and middle in width
-	auto actionSelectorUI = std::make_unique<ActionSelectorUI>("actionSelector", sf::Vector2f(_windowWidth / 2, _windowHeight-_windowHeight / 3), _windowWidth /2, _windowHeight / 3);
+	
+
+	auto lightAttackButton = std::unique_ptr<TextHighliteButton>(new TextHighliteButton("lightAttack", font, "Light Attack", sf::Vector2f(_windowWidth / 4, _windowHeight / 4)));
+	lightAttackButton->setHighliteFillColor(sf::Color(100, 100, 100));
+	lightAttackButton->setGrowFactor(1);
+	lightAttackButton->setOnClickAction([&]() {
+		AttackMove()();
+		});
+
+	auto actionSelectorUI = std::unique_ptr<ActionSelectorUI>(new ActionSelectorUI("actionSelectorUI", sf::Vector2f(_windowWidth / 2, _windowHeight - _windowHeight / 4), _windowWidth / 2, _windowHeight / 4));
+	actionSelectorUI->addButton(std::move(lightAttackButton));
+
+
 	gameScreen->addGameObject(std::move(actionSelectorUI));
 }

@@ -1,6 +1,7 @@
 #include "scoreboard.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
 Scoreboard::Scoreboard(std::string identifier, sf::Vector2f position, std::string scoreFilePath, sf::Font& font) : GameObject(identifier, position), _font(font), _scoreFileIO(scoreFilePath)
 {
@@ -9,6 +10,10 @@ Scoreboard::Scoreboard(std::string identifier, sf::Vector2f position, std::strin
 
 Scoreboard::~Scoreboard()
 {
+	for (unsigned int i = 0; i < _scoreEntries.size(); i++)
+	{
+		delete _scoreEntries[i];
+	}
 }
 
 void Scoreboard::start()
@@ -18,6 +23,22 @@ void Scoreboard::start()
 
 void Scoreboard::update()
 {
+}
+
+void Scoreboard::handleEvent(const sf::Event& event, sf::RenderWindow& window)
+{
+	//if i press a add a score
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		printf("Adding score\n");
+		_scoreFileIO.addScore("Test", 100);
+		refresh();
+	}
+}
+
+void Scoreboard::onDisable()
+{
+	_scoreFileIO.saveScores();
 }
 
 void Scoreboard::render(sf::RenderWindow& window)
@@ -44,7 +65,7 @@ void Scoreboard::refresh()
 void Scoreboard::clearScores()
 {
 	_scoreFileIO.clearScores();
-	_scoreEntries = _scoreFileIO.getTopScores(_scoreAmount);
+	refresh();
 }
 
 void Scoreboard::fillRestWithPlaceholders()

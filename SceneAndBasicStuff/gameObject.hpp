@@ -30,9 +30,10 @@ public:
 	/*
 		 Called whenever a scene starts.
 	*/
-	virtual void start();
-	virtual void update();
-	virtual void render(sf::RenderWindow& window);
+	virtual void start() { };
+	virtual void onDisable() { };
+	virtual void update() { };
+	virtual void render(sf::RenderWindow& window) { };
 	virtual void setPosition(const sf::Vector2f position);
 	std::string getIdentifier() const;
 };

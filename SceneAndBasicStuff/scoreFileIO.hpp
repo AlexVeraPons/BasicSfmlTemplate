@@ -21,9 +21,9 @@ public:
 	std::vector<ScoreEntry*> getTopScores(int amount) const;
 	ScoreEntry* getTopScore() const;
 	void clearScores();
+	void saveScores();
 private:
 	void orderScores();
-	void saveScores();
 	void clearScoreList();
 };
 

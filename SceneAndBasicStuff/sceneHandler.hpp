@@ -15,6 +15,7 @@ public:
     void render(sf::RenderWindow& window) const; // const because it doesn't change the object
     void update();
     void handleEvent(const sf::Event& evenet, sf::RenderWindow& window);
+    void onDisable();
 
     void addScene(Scene& scene);
     void stackScene(std::string sceneName); // Stack is to add an element to the top of the stack

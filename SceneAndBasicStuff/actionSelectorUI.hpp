@@ -7,7 +7,7 @@
 class ActionSelectorUI : public GameObject
 {
 private:
-	std::vector <Button*> _buttons;
+	std::vector <std::unique_ptr<Button>> _buttons;
 	sf::Color _buttonColor;
 	float _width;
 	float _height;
@@ -19,7 +19,7 @@ public:
 	void update() override;
 	void render(sf::RenderWindow& window) override;
 	void handleEvent(const sf::Event& event, sf::RenderWindow& window) override;
-	void addButton(Button* button);
+	void addButton(std::unique_ptr<Button> button);
 	void setButtonColor(sf::Color color);
 private:
 	void setupButtonPositions();

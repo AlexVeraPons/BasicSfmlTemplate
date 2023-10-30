@@ -22,6 +22,8 @@ public:
 	// Inherited via GameObject
 	void start() override;
 	void update() override;
+	void handleEvent(const sf::Event& event, sf::RenderWindow& window);
+	void onDisable() override;
 	void render(sf::RenderWindow& window) override;
 	void refresh();
 	void clearScores();

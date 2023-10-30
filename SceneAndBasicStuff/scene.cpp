@@ -57,3 +57,11 @@ void Scene::render(sf::RenderWindow& window) {
 std::string Scene::getIdentifier() const {
 	return this->identifier;
 }
+
+void Scene::onDisable()
+{
+	for (unsigned int i = 0; i < this->listOfGameObjects.size(); i++)
+	{
+		this->listOfGameObjects[i]->onDisable();
+	}
+}

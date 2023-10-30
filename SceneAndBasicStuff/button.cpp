@@ -76,7 +76,7 @@ void Button::setCharacterSize(const int size) {
 
 void Button::setPosition(const sf::Vector2f position) {
 	GameObject::setPosition(position);
-	
+
 	this->shape.setPosition(position);
 	sf::Vector2f size = this->shape.getSize();
 	sf::Vector2f centerButton(position.x + (size.x / 2.0f), position.y + (size.y / 2.0f));
@@ -111,6 +111,18 @@ void Button::setTextSize(const int size)
 void Button::setShapeSize(sf::Vector2f size)
 {
 	shape.setSize(size);
+}
+
+void Button::setBackgroundColor(const sf::Color color)
+{
+	this->shape.setFillColor(color);
+}
+
+void Button::centerText()
+{
+	sf::FloatRect textRect = this->text.getLocalBounds();
+	this->text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	this->text.setPosition(this->shape.getPosition().x + (this->shape.getSize().x / 2.0f), this->shape.getPosition().y + (this->shape.getSize().y / 2.0f));
 }
 
 void Button::onClick() {

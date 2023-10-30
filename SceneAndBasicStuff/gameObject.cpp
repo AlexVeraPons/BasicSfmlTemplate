@@ -12,12 +12,6 @@ GameObject::GameObject(const GameObject& other) : identifier(other.getIdentifier
 
 GameObject::~GameObject() { }
 
-void GameObject::start() { }
-
-void GameObject::update() { }
-
-void GameObject::render(sf::RenderWindow& window) { }
-
 void GameObject::setPosition(const sf::Vector2f position)
 {
 	this->position = position;

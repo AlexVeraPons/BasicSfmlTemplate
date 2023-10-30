@@ -111,7 +111,8 @@ void ScoreFileIO::saveScores()
 
 	for (int i = 0; i < _scoreEntries.size(); i++)
 	{
-		*_scoreFile << _scoreEntries[i]->name << " " << _scoreEntries[i]->score << std::endl;
+		std::cout << "Saving score: " << *_scoreEntries[i] << std::endl;
+		*_scoreFile << *_scoreEntries[i] << std::endl;
 	}
 }
 

@@ -23,6 +23,7 @@ public:
     void update();
     void render(sf::RenderWindow& window);
     void start();
+    void onDisable();
     std::string getIdentifier() const;
 };
 
