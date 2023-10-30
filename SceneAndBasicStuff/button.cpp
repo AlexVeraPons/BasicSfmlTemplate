@@ -10,6 +10,7 @@ Button::Button(std::string identifier, sf::Font& font, std::string buttonText, s
 	this->shape.setOutlineColor(sf::Color::Black);
 	this->shape.setOutlineThickness(1);
 
+	//check if the font is valid 
 	this->text.setFont(font);
 	this->text.setString(buttonText);
 	this->text.setCharacterSize(26);
@@ -94,7 +95,7 @@ void Button::setOutlineColor(const sf::Color color)
 
 void Button::setOutlineThickness(const float thickness)
 {
-		this->shape.setOutlineThickness(thickness);
+	this->shape.setOutlineThickness(thickness);
 }
 
 void Button::setTextColor(const sf::Color color)

@@ -10,6 +10,10 @@ TextHighliteButton::TextHighliteButton(std::string identifier,
 
 	this->originalTextSize = this->text.getScale();
 	this->originalShapeSize = this->shape.getScale();
+
+	this->text.setFont(font);
+	//print font name
+	printf("font name: %s\n", font.getInfo().family.c_str());
 }
 
 TextHighliteButton::~TextHighliteButton() { }
@@ -50,10 +54,6 @@ void TextHighliteButton::setGrowFactor(const float factor)
 	growFactor = factor;
 }
 
-void TextHighliteButton::update()
-{
-}
-
 void TextHighliteButton::onClick()
 {
 	Button::onClick();
@@ -61,4 +61,9 @@ void TextHighliteButton::onClick()
 
 void TextHighliteButton::start()
 {
+}
+
+void TextHighliteButton::render(sf::RenderWindow& window)
+{
+	Button::render(window);
 }

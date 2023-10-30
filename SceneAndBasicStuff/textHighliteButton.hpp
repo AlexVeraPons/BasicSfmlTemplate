@@ -16,20 +16,19 @@ private:
 	float growFactor = 1.1f;
 
 public:
-	TextHighliteButton();
 	TextHighliteButton(std::string identifier, sf::Font& font, std::string buttonText,
 		sf::Vector2f size);
 	~TextHighliteButton();
 
 public:
 	void start() override;
+	void render(sf::RenderWindow& window) override;
 	void setHighliteTextColor(const sf::Color color);
 	void setHighliteFillColor(const sf::Color color);
 	void setGrowFactor(const float factor);
 
 private:
 	// Inherited via Button
-	void update() override;
 	void onClick() override;
 	void onHover() override;
 	void onHoverEnter() override;
