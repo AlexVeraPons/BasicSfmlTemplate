@@ -8,7 +8,7 @@
 class Scene {
 private:
     const std::string identifier;
-    std::vector<GameObject*> listOfGameObjects;
+    std::vector<std::unique_ptr<GameObject>> listOfGameObjects;
     bool started;
 
 public:
@@ -16,7 +16,8 @@ public:
     ~Scene();
 
 public:
-    void addGameObject(GameObject& object);
+    void addGameObject(std::unique_ptr<GameObject> object);
+    GameObject* getGameObject(std::string identifier);
 
     void handleEvent(const sf::Event& event, sf::RenderWindow& window);
     void update();

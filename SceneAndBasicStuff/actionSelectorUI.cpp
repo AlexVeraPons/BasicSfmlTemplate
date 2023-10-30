@@ -29,6 +29,18 @@ void ActionSelectorUI::update()
 
 void ActionSelectorUI::render(sf::RenderWindow& window)
 {
+	//render a grey background for the buttons
+	sf::RectangleShape background(sf::Vector2f(_width, _height));
+	background.setPosition(this->position);
+	background.setFillColor(sf::Color::Magenta);
+	window.draw(background);
+
+	//render a square in the origin of the action selector
+	sf::RectangleShape origin(sf::Vector2f(10, 10));
+	origin.setPosition(this->position);
+	origin.setFillColor(sf::Color::Blue);
+	window.draw(origin);
+
 	for (Button* button : _buttons)
 	{
 		button->render(window);
@@ -69,7 +81,7 @@ void ActionSelectorUI::setupButtonPositions()
 
 		_buttons[i]->setPosition(sf::Vector2f(buttonXPosition, buttonYPosition));
 
-		if (i == _buttons.size()-1  && _buttons.size() % 2 != 0) {
+		if (i == _buttons.size() - 1 && _buttons.size() % 2 != 0) {
 			_buttons[i]->setShapeSize(sf::Vector2f(buttonWidth, _height));
 		}
 		else {

@@ -62,37 +62,40 @@ void GameLoop(sf::RenderWindow& window, SceneHandler& handler) {
 
 void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, sf::RenderWindow& window)
 {
-
 	sf::Vector2f mainScreenButtonsize(200, 100);
 
 	// scoreboard
-	Scoreboard* scoreboard = new Scoreboard("scoreboard", sf::Vector2f(_windowWidth - _windowWidth / 6, _windowHeight / 4), _scoreFilePath, font);
-	mainScreen->addGameObject(*scoreboard);
+	auto scoreboard = std::make_unique<Scoreboard>("scoreboard", sf::Vector2f(_windowWidth - _windowWidth / 6, _windowHeight / 4), _scoreFilePath, font);
+	mainScreen->addGameObject(std::move(scoreboard));
 
 	// play button
-	TextHighliteButton* play = new TextHighliteButton("play", font, "Play", mainScreenButtonsize);
+	auto play = std::make_unique<TextHighliteButton>("play", font, "Play", mainScreenButtonsize);
 	play->setPosition(sf::Vector2f(100, 100));
 	play->setHighliteFillColor(sf::Color::Transparent);
 	play->setHighliteTextColor(sf::Color::Cyan);
 	play->setOutlineColor(sf::Color::Transparent);
-	play->setOnClickAction([&]() {  
+	play->setOnClickAction([&handler]() {
 		handler.stackScene("gameScreen");
 		});
-	mainScreen->addGameObject(*play);
+	mainScreen->addGameObject(std::move(play));
 
 	// erase data button
-	TextHighliteButton* eraseData = new TextHighliteButton("eraseData", font, "Erase Data", mainScreenButtonsize);
+	auto eraseData = std::make_unique<TextHighliteButton>("eraseData", font, "Erase Data", mainScreenButtonsize);
 	eraseData->setPosition(sf::Vector2f(100, 200));
 	eraseData->setHighliteFillColor(sf::Color::Transparent);
 	eraseData->setHighliteTextColor(sf::Color::Cyan);
 	eraseData->setOutlineColor(sf::Color::Transparent);
-	eraseData->setOnClickAction([=]() {
-		scoreboard->clearScores();
+	eraseData->setOnClickAction([mainScreen]() {
+		GameObject* gameObject = mainScreen->getGameObject("scoreboard");
+		Scoreboard* scoreboard = dynamic_cast<Scoreboard*>(gameObject);
+		if (scoreboard) {
+			scoreboard->clearScores();
+		}
 		});
-	mainScreen->addGameObject(*eraseData);
+	mainScreen->addGameObject(std::move(eraseData));
 
 	// quit button
-	TextHighliteButton* quit = new TextHighliteButton("quit", font, "Quit", mainScreenButtonsize);
+	auto quit = std::make_unique<TextHighliteButton>("quit", font, "Quit", mainScreenButtonsize);
 	quit->setPosition(sf::Vector2f(100, 300));
 	quit->setHighliteFillColor(sf::Color::Transparent);
 	quit->setHighliteTextColor(sf::Color::Cyan);
@@ -100,11 +103,13 @@ void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, s
 	quit->setOnClickAction([&]() {
 		window.close();
 		});
-	mainScreen->addGameObject(*quit);
-
+	mainScreen->addGameObject(std::move(quit));
 }
+
 
 void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen)
 {
-
+	//set action selector ui into a quarter of the screen in height and middle in width
+	auto actionSelectorUI = std::make_unique<ActionSelectorUI>("actionSelector", sf::Vector2f(_windowWidth / 2, _windowHeight-_windowHeight / 3), _windowWidth /2, _windowHeight / 3);
+	gameScreen->addGameObject(std::move(actionSelectorUI));
 }

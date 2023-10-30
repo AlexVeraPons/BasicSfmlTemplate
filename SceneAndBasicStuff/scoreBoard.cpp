@@ -2,15 +2,13 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-Scoreboard::Scoreboard(std::string identifier, sf::Vector2f position, std::string scoreFilePath, sf::Font& font) : GameObject(identifier, position), _font(font)
+Scoreboard::Scoreboard(std::string identifier, sf::Vector2f position, std::string scoreFilePath, sf::Font& font) : GameObject(identifier, position), _font(font), _scoreFileIO(scoreFilePath)
 {
-	_scoreFileIO = new ScoreFileIO(scoreFilePath);
 	refresh();
 }
 
 Scoreboard::~Scoreboard()
 {
-	delete _scoreFileIO;
 }
 
 void Scoreboard::start()
@@ -38,15 +36,15 @@ void Scoreboard::render(sf::RenderWindow& window)
 
 void Scoreboard::refresh()
 {
-	_scoreFileIO->reloadScores();
-	_scoreEntries = _scoreFileIO->getTopScores(_scoreAmount);
+	_scoreFileIO.reloadScores();
+	_scoreEntries = _scoreFileIO.getTopScores(_scoreAmount);
 	fillRestWithPlaceholders();
 }
 
 void Scoreboard::clearScores()
 {
-	_scoreFileIO->clearScores();
-	_scoreEntries = _scoreFileIO->getTopScores(_scoreAmount);
+	_scoreFileIO.clearScores();
+	_scoreEntries = _scoreFileIO.getTopScores(_scoreAmount);
 }
 
 void Scoreboard::fillRestWithPlaceholders()

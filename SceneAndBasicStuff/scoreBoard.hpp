@@ -12,7 +12,7 @@ private:
 	unsigned int const _scoreAmount = 5;
 	float const _scoreboardTextOffset = 50;
 	sf::Font& _font;
-	ScoreFileIO* _scoreFileIO; //update when i get the next lesson on smart pointers
+	ScoreFileIO _scoreFileIO; //update when i get the next lesson on smart pointers
 	std::vector<ScoreEntry*> _scoreEntries;
 public:
 	Scoreboard(std::string identifier, sf::Vector2f position, std::string scoreFilePath,sf::Font& font); 
