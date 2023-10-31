@@ -13,6 +13,10 @@ public:
 	FightCharacter();
 	FightCharacter(CharacterData characterData);
 	FightCharacter(const FightCharacter& other);
+	
+	bool operator==(const FightCharacter& other);
+	explicit operator bool() const;
+
 	~FightCharacter();
 public:
 	int getAttack() const;
@@ -20,13 +24,19 @@ public:
 	int getHealth() const;
 	std::string getName() const;
 	bool isActive() const;
+	bool isAlive() const;
+
+
+
+	void dealDamage(float ammount);
+	void heal(float ammount);
 
 	void startTurn();
 	void endTurn();
-	void receiveDamage(unsigned int damage);
-	void heal(unsigned int health);
-	bool isAlive();
 	void setQueuePosition(float position);
 	float getQueuePosition() const;
 	void advanceQueuePosition(float amount);
+
+private:
+
 };

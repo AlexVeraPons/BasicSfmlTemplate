@@ -14,6 +14,16 @@ FightCharacter::FightCharacter(const FightCharacter& other)
 	_isActive = other._isActive;
 }
 
+bool FightCharacter::operator==(const FightCharacter& other)
+{
+	return _characterData == other._characterData;
+}
+
+FightCharacter::operator bool() const
+{
+	return isAlive();
+}
+
 FightCharacter::FightCharacter() : FightCharacter(CharacterData()) { }
 
 FightCharacter::~FightCharacter() { }
@@ -43,6 +53,16 @@ bool FightCharacter::isActive() const
 	return _isActive;
 }
 
+void FightCharacter::dealDamage(float ammount)
+{
+	_characterData.stats.health -= ammount;
+}
+
+void FightCharacter::heal(float ammount)
+{
+	_characterData.stats.health += ammount;
+}
+
 void FightCharacter::startTurn()
 {
 	printf("%s's turn!\n", _characterData.name.c_str());
@@ -54,17 +74,7 @@ void FightCharacter::endTurn()
 	_isActive = false;
 }
 
-void FightCharacter::receiveDamage(unsigned int damage)
-{
-	_characterData.stats.health -= damage;
-}
-
-void FightCharacter::heal(unsigned int health)
-{
-	_characterData.stats.health += health;
-}
-
-bool FightCharacter::isAlive()
+bool FightCharacter::isAlive() const
 {
 	return _characterData.stats.health >= 0;
 }

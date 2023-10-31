@@ -110,13 +110,28 @@ void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, s
 
 void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen)
 {
-	
+
+	CharacterData playerData;
+	playerData.name = "Player";
+	playerData.stats.attack = 10;
+	playerData.stats.health= 10;
+
+	FightCharacter player(playerData);
+
+	CharacterData enemyData;
+	enemyData.name = "Enemy";
+	enemyData.stats.attack = 10;
+	enemyData.stats.health = 10;
+
+	FightCharacter enemy(enemyData);
+
+	FightController fightController();
 
 	auto lightAttackButton = std::unique_ptr<TextHighliteButton>(new TextHighliteButton("lightAttack", font, "Light Attack", sf::Vector2f(_windowWidth / 4, _windowHeight / 4)));
 	lightAttackButton->setHighliteFillColor(sf::Color(100, 100, 100));
 	lightAttackButton->setGrowFactor(1);
 	lightAttackButton->setOnClickAction([&]() {
-		AttackMove()();
+		//AttackMove()();
 		});
 
 	auto actionSelectorUI = std::unique_ptr<ActionSelectorUI>(new ActionSelectorUI("actionSelectorUI", sf::Vector2f(_windowWidth / 2, _windowHeight - _windowHeight / 4), _windowWidth / 2, _windowHeight / 4));

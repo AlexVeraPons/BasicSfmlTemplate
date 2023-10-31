@@ -19,5 +19,6 @@ struct CharacterData
 	*/
 	CharacterData(std::string name, sf::Sprite sprite, unsigned int attack, unsigned int speed, unsigned int health);
 	CharacterData& operator=(const CharacterData& other);
+	bool operator==(const CharacterData& other);
 
 };

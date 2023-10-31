@@ -1,9 +1,16 @@
 #include "fightController.hpp"
 #include "fightCharacter.hpp"
 #include "turnDecider.hpp"
+#include "move.hpp"
 
 
-FightController::FightController() : turnDecider(fighters[0], fighters[1]), GameObject() { }
+
+#include "fightController.hpp"
+#include <memory> // for std::unique_ptr
+
+FightController::FightController(FightCharacter player, FightCharacter enemy) : _player(std::make_unique<FightCharacter>(player)), _enemy(std::make_unique<FightCharacter>(enemy)),
+turnDecider(*_player, *_enemy) { }
+
 
 FightController::~FightController() { }
 
@@ -12,28 +19,11 @@ void FightController::start()
 	nextTurn();
 }
 
-void FightController::setupFight(FightCharacter fighterA, FightCharacter fighterB)
+void FightController::executeMove(Move* move)
 {
-
-	turnDecider.setFighters(fighters[0], fighters[1]);
-}
-
-void FightController::executeMove()
-{
-	//MoveExecuter(move, target);
-
-	//if (target.isDead() && target is npc)
-	//{
-	//	Win();
-	//}
-	//else if (target.isDead() && target is player)
-	//{
-	//	Lose();
-	//}
-
+	move->execute();
 	nextTurn();
 }
-
 
 void FightController::nextTurn()
 {

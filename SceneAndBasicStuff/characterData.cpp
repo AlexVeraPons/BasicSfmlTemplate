@@ -13,3 +13,8 @@ CharacterData& CharacterData::operator=(const CharacterData& other)
 	stats = other.stats;
 	return *this;
 }
+
+bool CharacterData::operator==(const CharacterData& other)
+{
+return name == other.name;
+}
