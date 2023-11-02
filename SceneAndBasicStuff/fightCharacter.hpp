@@ -15,6 +15,11 @@ public:
 	FightCharacter(const FightCharacter& other);
 	
 	bool operator==(const FightCharacter& other);
+
+	/*
+	Returns true if the character is alive,
+	else returns false.
+	*/
 	explicit operator bool() const;
 
 	~FightCharacter();
@@ -25,8 +30,6 @@ public:
 	std::string getName() const;
 	bool isActive() const;
 	bool isAlive() const;
-
-
 
 	void dealDamage(float ammount);
 	void heal(float ammount);

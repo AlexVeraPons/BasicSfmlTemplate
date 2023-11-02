@@ -1,11 +1,14 @@
-#include "actionSelectorUI.hpp"
-#include "button.hpp"
 #include <vector>
 
-ActionSelectorUI::ActionSelectorUI(std::string identifier, sf::Vector2f position, float width, float height) : GameObject(identifier, position), _buttonColor(sf::Color())
+#include "actionSelectorUI.hpp"
+#include "button.hpp"
+#include "fightCharacter.hpp"
+
+ActionSelectorUI::ActionSelectorUI(std::string identifier, sf::Vector2f position, float width, float height, FightCharacter& player) : GameObject(identifier, position), _buttonColor(sf::Color())
 {
 	_width = width;
 	_height = height;
+	_player = &player;
 }
 
 ActionSelectorUI::~ActionSelectorUI() { }
@@ -21,7 +24,12 @@ void ActionSelectorUI::start()
 
 void ActionSelectorUI::update()
 {
-	for (auto&  button : _buttons)
+	if (isPlayerActive() == false)
+	{
+		return;
+	}
+
+	for (auto& button : _buttons)
 	{
 		button->update();
 	}
@@ -37,6 +45,11 @@ void ActionSelectorUI::render(sf::RenderWindow& window)
 
 void ActionSelectorUI::handleEvent(const sf::Event& event, sf::RenderWindow& window)
 {
+	if (isPlayerActive() == false)
+	{
+		return;
+	}
+
 	for (auto& button : _buttons)
 	{
 		button->handleEvent(event, window);
@@ -78,4 +91,9 @@ void ActionSelectorUI::setupButtonPositions()
 
 		_buttons[i]->centerText();
 	}
+}
+
+bool ActionSelectorUI::isPlayerActive()
+{
+	return _player->isActive();
 }

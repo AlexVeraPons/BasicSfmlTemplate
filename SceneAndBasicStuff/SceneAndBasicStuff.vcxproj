@@ -142,6 +142,7 @@
     <ClCompile Include="scoreboard.cpp" />
     <ClCompile Include="scoreEntry.cpp" />
     <ClCompile Include="scoreFileIO.cpp" />
+    <ClCompile Include="Subject.cpp" />
     <ClCompile Include="textHighlitButton.cpp" />
     <ClCompile Include="textObject.cpp" />
     <ClCompile Include="textZoneUI.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="scoreEntry.hpp" />
     <ClInclude Include="scoreFileIO.hpp" />
     <ClInclude Include="characterStats.hpp" />
+    <ClInclude Include="Subject.hpp" />
     <ClInclude Include="textHighliteButton.hpp" />
     <ClInclude Include="button.hpp" />
     <ClInclude Include="textZoneUI.hpp" />

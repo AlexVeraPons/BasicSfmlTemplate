@@ -9,9 +9,9 @@ void Scene::addGameObject(std::unique_ptr<GameObject> object) {
 }
 
 GameObject* Scene::getGameObject(std::string const identifier) {
-	for (std::unique_ptr<GameObject>& gameObject : this->listOfGameObjects) {
-		if (gameObject) {  // Check if gameObject is not null
-			printf("identifier: %s\n", gameObject->getIdentifier().c_str());
+
+	for (auto& gameObject : listOfGameObjects) {  
+		if (gameObject) {  
 			if (gameObject->getIdentifier() == identifier) {
 				return gameObject.get();
 			}
@@ -20,8 +20,7 @@ GameObject* Scene::getGameObject(std::string const identifier) {
 			printf("Null gameObject found in listOfGameObjects\n");
 		}
 	}
-	return nullptr;  // Ensure to return a value in all cases
-}
+	return nullptr;  }
 
 void Scene::start()
 {

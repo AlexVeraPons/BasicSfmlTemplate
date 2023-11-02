@@ -7,7 +7,16 @@ TurnDecider::TurnDecider(FightCharacter& _character1, FightCharacter& _character
 	_activeCharacter  = &getTurnCharacter();
 }
 
+TurnDecider::TurnDecider(): _character1(nullptr), _character2(nullptr), _activeCharacter(nullptr) { }
+
 TurnDecider::~TurnDecider() { }
+
+TurnDecider::TurnDecider(const TurnDecider& other)
+{
+    _character1 = other._character1;
+	_character2 = other._character2;
+	_activeCharacter = other._activeCharacter;
+}
 
 void TurnDecider::setFighters(FightCharacter& _character1, FightCharacter& _character2)
 {

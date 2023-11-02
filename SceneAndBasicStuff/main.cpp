@@ -101,7 +101,7 @@ void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, s
 	quit->setHighliteFillColor(sf::Color::Transparent);
 	quit->setHighliteTextColor(sf::Color::Cyan);
 	quit->setOutlineColor(sf::Color::Transparent);
-	quit->setOnClickAction([&]() {
+	quit->setOnClickAction([&window]() {
 		window.close();
 		});
 	mainScreen->addGameObject(std::move(quit));
@@ -110,11 +110,11 @@ void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, s
 
 void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen)
 {
-
 	CharacterData playerData;
 	playerData.name = "Player";
 	playerData.stats.attack = 10;
-	playerData.stats.health= 10;
+	playerData.stats.health = 10;
+	playerData.stats.speed = 50;
 
 	FightCharacter player(playerData);
 
@@ -125,18 +125,22 @@ void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen)
 
 	FightCharacter enemy(enemyData);
 
-	FightController fightController();
+	auto fightController = std::make_unique<FightController>("fightController", player, enemy);
+	gameScreen->addGameObject(std::move(fightController));
 
 	auto lightAttackButton = std::unique_ptr<TextHighliteButton>(new TextHighliteButton("lightAttack", font, "Light Attack", sf::Vector2f(_windowWidth / 4, _windowHeight / 4)));
 	lightAttackButton->setHighliteFillColor(sf::Color(100, 100, 100));
 	lightAttackButton->setGrowFactor(1);
-	lightAttackButton->setOnClickAction([&]() {
-		//AttackMove()();
+	lightAttackButton->setOnClickAction([gameScreen]() {
+		FightController* fightController = dynamic_cast<FightController*>(gameScreen->getGameObject("fightController"));
+		if (fightController) {
+			fightController->executeMove(new AttackMove(fightController->getPlayer(), fightController->getEnemy()));
+		}
 		});
 
-	auto actionSelectorUI = std::unique_ptr<ActionSelectorUI>(new ActionSelectorUI("actionSelectorUI", sf::Vector2f(_windowWidth / 2, _windowHeight - _windowHeight / 4), _windowWidth / 2, _windowHeight / 4));
+	FightController* fightControllerintance = dynamic_cast<FightController*>(gameScreen->getGameObject("fightController"));
+	auto actionSelectorUI = std::unique_ptr<ActionSelectorUI>(new ActionSelectorUI("actionSelectorUI", sf::Vector2f(_windowWidth / 2, _windowHeight - _windowHeight / 4), _windowWidth / 2, _windowHeight / 4, fightControllerintance->getPlayer()));
 	actionSelectorUI->addButton(std::move(lightAttackButton));
-
 
 	gameScreen->addGameObject(std::move(actionSelectorUI));
 }

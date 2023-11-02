@@ -9,8 +9,11 @@ private:
 
 	FightCharacter* _activeCharacter;
 public:
+	TurnDecider();
 	TurnDecider(FightCharacter& _character1, FightCharacter& _character2);
 	~TurnDecider();
+
+	TurnDecider(const TurnDecider& other);
 
 public:
 	void setFighters(FightCharacter& _character1, FightCharacter& _character2);

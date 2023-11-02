@@ -55,6 +55,7 @@ bool FightCharacter::isActive() const
 
 void FightCharacter::dealDamage(float ammount)
 {
+	printf("%s takes %f damage!\n", _characterData.name.c_str(), ammount);
 	_characterData.stats.health -= ammount;
 }
 

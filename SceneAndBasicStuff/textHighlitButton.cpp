@@ -12,8 +12,6 @@ TextHighliteButton::TextHighliteButton(std::string identifier,
 	this->originalShapeSize = this->shape.getScale();
 
 	this->text.setFont(font);
-	//print font name
-	printf("font name: %s\n", font.getInfo().family.c_str());
 }
 
 TextHighliteButton::~TextHighliteButton() { }

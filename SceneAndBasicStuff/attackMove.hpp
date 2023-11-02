@@ -18,7 +18,6 @@ public:
 	~AttackMove();
 
 	void operator()() override;
-
 public:
 
 	void execute() override;
