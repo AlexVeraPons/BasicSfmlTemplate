@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="actionSelectorUI.cpp" />
     <ClCompile Include="attackMove.cpp" />
+    <ClCompile Include="battleLog.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="characterData.cpp" />
     <ClCompile Include="characterStats.cpp" />
@@ -150,16 +151,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="attackMove.hpp" />
+    <ClInclude Include="battleLog.hpp" />
     <ClInclude Include="characterData.hpp" />
+    <ClInclude Include="enemyAI.hpp" />
     <ClInclude Include="fightCharacter.hpp" />
     <ClInclude Include="fightController.hpp" />
+    <ClInclude Include="observer.hpp" />
     <ClInclude Include="main.h" />
     <ClInclude Include="move.hpp" />
     <ClInclude Include="scoreboard.hpp" />
     <ClInclude Include="scoreEntry.hpp" />
     <ClInclude Include="scoreFileIO.hpp" />
     <ClInclude Include="characterStats.hpp" />
-    <ClInclude Include="Subject.hpp" />
+    <ClInclude Include="subject.hpp" />
     <ClInclude Include="textHighliteButton.hpp" />
     <ClInclude Include="button.hpp" />
     <ClInclude Include="textZoneUI.hpp" />

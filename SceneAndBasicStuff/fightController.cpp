@@ -1,14 +1,10 @@
 #include <string>
+#include <memory> 
 
 #include "fightController.hpp"
 #include "fightCharacter.hpp"
 #include "turnDecider.hpp"
 #include "move.hpp"
-
-
-
-#include "fightController.hpp"
-#include <memory> // for std::unique_ptr
 
 FightController::FightController(std::string identifier, FightCharacter player, FightCharacter enemy) : _player(std::make_unique<FightCharacter>(player)), _enemy(std::make_unique<FightCharacter>(enemy)),
 turnDecider(*_player, *_enemy), GameObject(identifier) { }
@@ -54,10 +50,11 @@ void FightController::start()
 
 void FightController::executeMove(Move* move)
 {
+	notifyObservers(activeFighter->getName() + " used " + move->getName());
 	(*move)();
 	delete move;
-
 	activeFighter->endTurn();
+
 	nextTurn();
 }
 

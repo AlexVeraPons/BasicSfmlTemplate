@@ -139,8 +139,20 @@ void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen)
 		});
 
 	FightController* fightControllerintance = dynamic_cast<FightController*>(gameScreen->getGameObject("fightController"));
+	
 	auto actionSelectorUI = std::unique_ptr<ActionSelectorUI>(new ActionSelectorUI("actionSelectorUI", sf::Vector2f(_windowWidth / 2, _windowHeight - _windowHeight / 4), _windowWidth / 2, _windowHeight / 4, fightControllerintance->getPlayer()));
 	actionSelectorUI->addButton(std::move(lightAttackButton));
 
 	gameScreen->addGameObject(std::move(actionSelectorUI));
+
+
+	FightCharacter* playerInstance = &fightControllerintance->getPlayer();
+	FightCharacter* enemyInstance = &fightControllerintance->getEnemy();
+
+	auto battleLog = std::unique_ptr<BattleLog>(new BattleLog("battleLog", sf::Vector2f(0, _windowHeight - _windowHeight / 4), _windowWidth / 2, _windowHeight / 4,font));
+	fightControllerintance->addObserver(*battleLog);
+	playerInstance->addObserver(*battleLog);
+	enemyInstance->addObserver(*battleLog);
+
+	gameScreen->addGameObject(std::move(battleLog));
 }

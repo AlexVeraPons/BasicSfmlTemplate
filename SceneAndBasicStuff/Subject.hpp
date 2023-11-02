@@ -1,35 +1,25 @@
 #pragma once
+#include <vector>
+#include "observer.hpp"
+#include <functional>  // For std::reference_wrapper
 
 template<typename T>
 class Subject
 {
 public:
-    void register_observer(observer<T>& o)
+    void addObserver(Observer<T>& observer)
     {
-        observers.push_back(o);
+        observers.push_back(observer);
     }
 
-    void notify_observers(const T& message)
+    void notifyObservers(const T& value)
     {
-        for (observer<T>& o : observers) {
-            o.notify(message);
+        for (Observer<T>& observer : observers) {
+            observer.onNotified(value);
         }
     }
 
 private:
-    std::vector<std::reference_wrapper<observer<T>>> observers;
-};
-
-template<typename T>
-class observer
-{
-public:
-    virtual void notify(const T& message) = 0;
-};
-
-class observer_concrete : public observer<int>
-{
-public:
-    void notify(const int&) override;
+    std::vector<std::reference_wrapper<Observer<T>>> observers;
 };
 

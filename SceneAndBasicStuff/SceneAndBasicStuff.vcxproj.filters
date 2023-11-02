@@ -75,6 +75,9 @@
     <ClCompile Include="Subject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="battleLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sceneHandler.hpp">
@@ -137,7 +140,16 @@
     <ClInclude Include="attackMove.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Subject.hpp">
+    <ClInclude Include="subject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="observer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="battleLog.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyAI.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

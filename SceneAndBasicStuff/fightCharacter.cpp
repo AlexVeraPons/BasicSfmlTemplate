@@ -53,15 +53,16 @@ bool FightCharacter::isActive() const
 	return _isActive;
 }
 
-void FightCharacter::dealDamage(float ammount)
+void FightCharacter::recieveDamage(float ammount)
 {
-	printf("%s takes %f damage!\n", _characterData.name.c_str(), ammount);
 	_characterData.stats.health -= ammount;
+	notifyObservers(_characterData.name + " revieved " + std::to_string(ammount) + " damage!");
 }
 
 void FightCharacter::heal(float ammount)
 {
 	_characterData.stats.health += ammount;
+	notifyObservers(_characterData.name + " healed " + std::to_string(ammount) + " health!");
 }
 
 void FightCharacter::startTurn()

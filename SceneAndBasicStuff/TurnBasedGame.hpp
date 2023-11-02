@@ -29,3 +29,6 @@
 #include "attackMove.hpp"
 
 #include "moveExecutor.hpp"
+#include "battleLog.hpp"
+
+

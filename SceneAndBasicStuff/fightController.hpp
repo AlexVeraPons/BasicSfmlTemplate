@@ -6,8 +6,9 @@
 #include "fightCharacter.hpp"
 #include "turnDecider.hpp"
 #include "move.hpp"
+#include "subject.hpp"
 
-class FightController : public GameObject
+class FightController : public GameObject, public Subject<std::string>
 {
 private:
 	std::unique_ptr <FightCharacter> _player;

@@ -33,7 +33,7 @@ const Target AttackMove::getTarget()
 void AttackMove::execute()
 {
 	float totalDamage = _dealer.getAttack() + getEffectValue();
-	_target.dealDamage(totalDamage);
+	_target.recieveDamage(totalDamage);
 
 	_dealer.setQueuePosition(_dealer.getQueuePosition() + getCost());
 }

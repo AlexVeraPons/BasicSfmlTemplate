@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
 #include "characterData.hpp"
+#include "subject.hpp"
 
-
-class FightCharacter
+class FightCharacter : public Subject<std::string>
 {
 private:
 	CharacterData _characterData;
@@ -31,7 +31,7 @@ public:
 	bool isActive() const;
 	bool isAlive() const;
 
-	void dealDamage(float ammount);
+	void recieveDamage(float ammount);
 	void heal(float ammount);
 
 	void startTurn();
