@@ -9,9 +9,11 @@
 class BattleLog : public GameObject, public Observer<std::string>
 {
 private:
-	sf::Text _pastText;
 	sf::Text _mainText;
+	sf::Text _pastText;
 	sf::RectangleShape _background;
+
+	sf::Color const _defaultColor = sf::Color(100,100,100);
 
 	float _width;
 	float _height;
@@ -20,7 +22,9 @@ public:
 	~BattleLog();
 
 public:
+	void start() override;
 	void render(sf::RenderWindow& window) override;
+	void clear();
 
 private:
 	// Inherited via Observer

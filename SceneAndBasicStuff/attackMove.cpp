@@ -2,7 +2,9 @@
 
 #include "attackMove.hpp"
 
-AttackMove::AttackMove(FightCharacter& dealer, FightCharacter& target) : _dealer(dealer), _target(target) { }
+AttackMove::AttackMove() : _dealer(new FightCharacter()), _target(new FightCharacter()) { }
+
+AttackMove::AttackMove(FightCharacter& dealer, FightCharacter& target) : _dealer(&dealer), _target(&target) { }
 AttackMove::~AttackMove() { }
 
 void AttackMove::operator()()
@@ -32,8 +34,8 @@ const Target AttackMove::getTarget()
 
 void AttackMove::execute()
 {
-	float totalDamage = _dealer.getAttack() + getEffectValue();
-	_target.recieveDamage(totalDamage);
+	float totalDamage = _dealer->getAttack() + getEffectValue();
+	_target->recieveDamage(totalDamage);
 
-	_dealer.setQueuePosition(_dealer.getQueuePosition() + getCost());
+	_dealer->setQueuePosition(getCost());
 }

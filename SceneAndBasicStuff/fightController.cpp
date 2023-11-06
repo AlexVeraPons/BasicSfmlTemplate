@@ -1,13 +1,16 @@
 #include <string>
 #include <memory> 
-
 #include "fightController.hpp"
 #include "fightCharacter.hpp"
 #include "turnDecider.hpp"
 #include "move.hpp"
 
-FightController::FightController(std::string identifier, FightCharacter player, FightCharacter enemy) : _player(std::make_unique<FightCharacter>(player)), _enemy(std::make_unique<FightCharacter>(enemy)),
-turnDecider(*_player, *_enemy), GameObject(identifier) { }
+FightController::FightController(std::string identifier, FightCharacter player, FightCharacter enemy)
+	: _player(std::make_unique<FightCharacter>(player)),
+	_enemy(std::make_unique<FightCharacter>(enemy)),
+	turnDecider(*_player, *_enemy),
+	GameObject(identifier),
+	enemyAi(_enemy, _player) { }
 
 FightController::~FightController() { }
 
@@ -45,17 +48,44 @@ void FightController::setEnemy(FightCharacter enemy)
 
 void FightController::start()
 {
-	nextTurn();
+	reset();
 }
 
+void FightController::update()
+{
+	if (aiMovePending && aiTimer.getElapsedTime() >= aiDelay) {
+		aiMovePending = false; // Reset the flag
+		enemyAi.executeMove(*this);
+	}
+}
+void FightController::reset()
+{
+	_player->reset();
+	_enemy->reset();
+	nextTurn();
+}
 void FightController::executeMove(Move* move)
 {
 	notifyObservers(activeFighter->getName() + " used " + move->getName());
+
 	(*move)();
-	delete move;
 	activeFighter->endTurn();
 
+	if (!_player->isAlive())
+	{
+		printf("you lost");
+		lose();
+		return;
+	}
+	else if (!_enemy->isAlive())
+	{
+		printf("you won");
+		win();
+		return;
+	}
+
 	nextTurn();
+
 }
 
 void FightController::nextTurn()
@@ -63,12 +93,21 @@ void FightController::nextTurn()
 	turnDecider.nextTurn();
 	activeFighter = &turnDecider.getTurnCharacter();
 	activeFighter->startTurn();
+
+	printf("%s's turn\n", activeFighter->getName().c_str());
+
+	if (enemyAi.getFighterName() == activeFighter->getName()) {
+		aiMovePending = true;
+		aiTimer.restart();
+	}
 }
 
 void FightController::win()
 {
+	notifyObservers("YOU WON!");
 }
 
 void FightController::lose()
 {
+	notifyObservers("YOU WON!");
 }

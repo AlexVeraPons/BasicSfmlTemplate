@@ -8,17 +8,17 @@
 class AttackMove : public Move
 {
 private:
-	FightCharacter& _dealer;
-	FightCharacter& _target;
+	FightCharacter* _dealer;
+	FightCharacter* _target;
 
 	float _moveCost = 20;
 	float _effectValue = 10;
 public:
+	AttackMove();
 	AttackMove(FightCharacter& dealer, FightCharacter& target);
 	~AttackMove();
 
 	void operator()() override;
-public:
 
 	void execute() override;
 

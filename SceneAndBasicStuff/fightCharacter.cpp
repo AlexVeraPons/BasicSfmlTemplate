@@ -1,16 +1,20 @@
 #include "fightCharacter.hpp"
+#include <string>
+
+FightCharacter::FightCharacter() : FightCharacter(CharacterData()) { }
 
 FightCharacter::FightCharacter(CharacterData characterData)
 {
 	_characterData = characterData;
-	_queuePosition = 100 - _characterData.stats.speed;
-	printf("%s's queue position is %f\n", _characterData.name.c_str(), _queuePosition);
+	_originalCharacterData = characterData;
+	_queueManager = QueueManager(100 - _characterData.stats.speed);
 }
 
 FightCharacter::FightCharacter(const FightCharacter& other)
 {
 	_characterData = other._characterData;
-	_queuePosition = other._queuePosition;
+	_originalCharacterData = other._originalCharacterData;
+	_queueManager = other._queueManager;
 	_isActive = other._isActive;
 }
 
@@ -23,8 +27,6 @@ FightCharacter::operator bool() const
 {
 	return isAlive();
 }
-
-FightCharacter::FightCharacter() : FightCharacter(CharacterData()) { }
 
 FightCharacter::~FightCharacter() { }
 
@@ -43,6 +45,11 @@ int FightCharacter::getHealth() const
 	return _characterData.stats.health;
 }
 
+int FightCharacter::getMaxHealth() const
+{
+	return _characterData.stats.maxHealth;
+}
+
 std::string FightCharacter::getName() const
 {
 	return _characterData.name;
@@ -53,21 +60,43 @@ bool FightCharacter::isActive() const
 	return _isActive;
 }
 
-void FightCharacter::recieveDamage(float ammount)
+void FightCharacter::updateHealth(float amount, const std::string message)
 {
-	_characterData.stats.health -= ammount;
-	notifyObservers(_characterData.name + " revieved " + std::to_string(ammount) + " damage!");
+	_characterData.stats.health += amount;
+
+	if (_characterData.stats.health < 0)
+	{
+		_characterData.stats.health = 0;
+	}
+	else if (_characterData.stats.health > _characterData.stats.maxHealth)
+	{
+		_characterData.stats.health = _characterData.stats.maxHealth;
+	}
+
+	Subject<float>::notifyObservers(_characterData.stats.health);
+	Subject<std::string>::notifyObservers(_characterData.name + message);
 }
 
-void FightCharacter::heal(float ammount)
+void FightCharacter::reset()
 {
-	_characterData.stats.health += ammount;
-	notifyObservers(_characterData.name + " healed " + std::to_string(ammount) + " health!");
+	_characterData = _originalCharacterData;
+	_queueManager.setQueuePosition(100 - _characterData.stats.speed);
+	_isActive = false;
+	Subject<float>::notifyObservers(_characterData.stats.health);
+}
+
+void FightCharacter::recieveDamage(float amount)
+{
+	updateHealth(-amount, " took " + std::to_string(static_cast<int>(amount)) + " damage");
+}
+
+void FightCharacter::heal(float amount)
+{
+	updateHealth(amount, " healed " + std::to_string(static_cast<int>(amount)) + " health");
 }
 
 void FightCharacter::startTurn()
 {
-	printf("%s's turn!\n", _characterData.name.c_str());
 	_isActive = true;
 }
 
@@ -78,20 +107,25 @@ void FightCharacter::endTurn()
 
 bool FightCharacter::isAlive() const
 {
-	return _characterData.stats.health >= 0;
+	return _characterData.stats.health > 0;
 }
 
 void FightCharacter::setQueuePosition(float position)
 {
-	_queuePosition = position;
+	_queueManager.setQueuePosition(position);
 }
 
 float FightCharacter::getQueuePosition() const
 {
-	return _queuePosition;
+	return _queueManager.getQueuePosition();
 }
 
 void FightCharacter::advanceQueuePosition(float amount)
 {
-	_queuePosition += amount;
+	_queueManager.advanceQueuePosition(amount);
+}
+
+void FightCharacter::addObserverToQueueManager(Observer<float>& observer)
+{
+	_queueManager.addObserver(observer);
 }

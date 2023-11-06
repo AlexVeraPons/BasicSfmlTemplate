@@ -7,13 +7,20 @@
 #include "turnDecider.hpp"
 #include "move.hpp"
 #include "subject.hpp"
+#include "enemyAI.hpp"
+#include "scene.hpp"
 
 class FightController : public GameObject, public Subject<std::string>
 {
 private:
-	std::unique_ptr <FightCharacter> _player;
-	std::unique_ptr <FightCharacter> _enemy;
+	sf::Clock aiTimer;
+	bool aiMovePending = false;
+	sf::Time aiDelay = sf::seconds(0.5);
 
+	std::shared_ptr <FightCharacter> _player;
+	std::shared_ptr <FightCharacter> _enemy;
+
+	EnemyAI enemyAi;
 	FightCharacter* activeFighter = nullptr;
 	TurnDecider turnDecider;
 public:
@@ -29,7 +36,9 @@ public:
 	void setPlayer(FightCharacter player);
 	void setEnemy(FightCharacter enemy);
 	
-	void start();
+	void start() override;
+	void update() override;
+	void reset();
 	void executeMove(Move* move);
 	void nextTurn();
 

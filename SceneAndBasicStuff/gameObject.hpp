@@ -7,6 +7,7 @@ private:
 	const std::string identifier;
 protected:
 	sf::Vector2f position;
+
 public:
 	/*
 		Default constructor. Sets the identifier to "GameObject" and the position to (0,0).
@@ -21,7 +22,7 @@ public:
 
 	/*
 		 Handles events like keyboard/mouse input.
-		 
+
 		 @param event The event object containing details about the event.
 		 @param window The render window where events are captured.
 	*/
@@ -35,5 +36,9 @@ public:
 	virtual void update() { };
 	virtual void render(sf::RenderWindow& window) { };
 	virtual void setPosition(const sf::Vector2f position);
+	void setAlwaysActive(const bool value);
+
+	bool isAlwaysActive() const;
+	virtual sf::Vector2f getPosition() const;
 	std::string getIdentifier() const;
 };

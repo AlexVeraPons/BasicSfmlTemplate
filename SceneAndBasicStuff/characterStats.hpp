@@ -2,9 +2,10 @@
 #include <string>
 struct CharacterStats
 {
+	int health;
 	unsigned int attack;
 	unsigned int speed;
-	unsigned int health;
+	unsigned int maxHealth;
 	
 	CharacterStats();
 	CharacterStats(unsigned int attack, unsigned int speed, unsigned int health);

@@ -19,8 +19,8 @@ BattleLog::BattleLog(std::string identifier, sf::Vector2f position, float width,
 	_pastText.setFont(font);
 	_pastText.setPosition(position + sf::Vector2f(0, _mainText.getCharacterSize() + 4));
 	_pastText.setCharacterSize(26);
-	_pastText.setFillColor(sf::Color(100,100,100));
-	_pastText.setOutlineColor(sf::Color(100, 100, 100));
+	_pastText.setFillColor(_defaultColor);
+	_pastText.setOutlineColor(_defaultColor);
 
 
 
@@ -33,11 +33,22 @@ BattleLog::~BattleLog()
 {
 }
 
+void BattleLog::start()
+{
+	clear();
+}
+
 void BattleLog::render(sf::RenderWindow& window)
 {
 	window.draw(_background);
 	window.draw(_mainText);
 	window.draw(_pastText);
+}
+
+void BattleLog::clear()
+{
+	_mainText.setString(" ");
+	_pastText.setString(" ");
 }
 
 void BattleLog::onNotified(const std::string& value)

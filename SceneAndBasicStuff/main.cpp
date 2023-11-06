@@ -12,7 +12,7 @@ const std::string _scoreFilePath = "Savedata/score.txt";
 
 void SetupWindow(sf::RenderWindow& window);
 void SetupScenes(SceneHandler& handler, sf::Font& font, sf::RenderWindow& window);
-void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen);
+void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen, SceneHandler& handler);
 void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& hanlder, sf::RenderWindow& window);
 void GameLoop(sf::RenderWindow& window, SceneHandler& handler);
 
@@ -38,7 +38,7 @@ void SetupScenes(SceneHandler& handler, sf::Font& font, sf::RenderWindow& window
 	Scene* gameScreen = new Scene("gameScreen");
 
 	SetupMainScreen(font, mainScreen, handler, window);
-	SetupGameScreen(gameScreen, font, mainScreen);
+	SetupGameScreen(gameScreen, font, mainScreen, handler);
 
 	handler.addScene(*mainScreen);
 	handler.addScene(*gameScreen);
@@ -108,51 +108,82 @@ void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, s
 }
 
 
-void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen)
+void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen, SceneHandler& handler)
 {
+	auto quitButton = std::make_unique<TextHighliteButton>("quitButton", font, "Quit", sf::Vector2f(100, 50));
+	quitButton->setHighliteFillColor(sf::Color(150,150,150));
+	quitButton->setHighliteTextColor(sf::Color::Cyan);
+	quitButton->setOutlineColor(sf::Color(90, 90, 90));
+	quitButton->setPosition(sf::Vector2f(20,20));
+	quitButton->setOnClickAction([&handler]() {
+		handler.stackScene("mainScreen");
+		});
+	gameScreen->addGameObject(std::move(quitButton));
+
 	CharacterData playerData;
 	playerData.name = "Player";
 	playerData.stats.attack = 10;
-	playerData.stats.health = 10;
-	playerData.stats.speed = 50;
+	playerData.stats.health = 100;
+	playerData.stats.maxHealth = 100;
+	playerData.stats.speed = 60;
 
 	FightCharacter player(playerData);
 
 	CharacterData enemyData;
 	enemyData.name = "Enemy";
 	enemyData.stats.attack = 10;
-	enemyData.stats.health = 10;
+	enemyData.stats.health = 100;
+	enemyData.stats.maxHealth = 100;
+	enemyData.stats.speed = 20;
 
 	FightCharacter enemy(enemyData);
 
 	auto fightController = std::make_unique<FightController>("fightController", player, enemy);
 	gameScreen->addGameObject(std::move(fightController));
 
-	auto lightAttackButton = std::unique_ptr<TextHighliteButton>(new TextHighliteButton("lightAttack", font, "Light Attack", sf::Vector2f(_windowWidth / 4, _windowHeight / 4)));
+	FightController* fightControllerintance = dynamic_cast<FightController*>(gameScreen->getGameObject("fightController"));
+
+	FightCharacter* playerInstance = &fightControllerintance->getPlayer();
+	FightCharacter* enemyInstance = &fightControllerintance->getEnemy();
+
+	auto lightAttackButton = std::unique_ptr<ShowMoveResultButton>(new ShowMoveResultButton("lightAttack", font, "Light Attack", sf::Vector2f(_windowWidth / 4, _windowHeight / 4), playerInstance, AttackMove().getCost()));
 	lightAttackButton->setHighliteFillColor(sf::Color(100, 100, 100));
 	lightAttackButton->setGrowFactor(1);
 	lightAttackButton->setOnClickAction([gameScreen]() {
 		FightController* fightController = dynamic_cast<FightController*>(gameScreen->getGameObject("fightController"));
 		if (fightController) {
-			fightController->executeMove(new AttackMove(fightController->getPlayer(), fightController->getEnemy()));
+			AttackMove* attackMove = new AttackMove(fightController->getPlayer(), fightController->getEnemy());
+			fightController->executeMove(attackMove);
+			delete attackMove;
 		}
 		});
 
-	FightController* fightControllerintance = dynamic_cast<FightController*>(gameScreen->getGameObject("fightController"));
-	
+	auto healButton = std::unique_ptr<ShowMoveResultButton>(new ShowMoveResultButton("BigHeal", font, "BigHeal", sf::Vector2f(_windowWidth / 4, _windowHeight / 4), playerInstance, BigHeal().getCost()));
+	healButton->setHighliteFillColor(sf::Color(100, 100, 100));
+	healButton->setGrowFactor(1);
+	healButton->setOnClickAction([gameScreen]() {
+		FightController* fightController = dynamic_cast<FightController*>(gameScreen->getGameObject("fightController"));
+		if (fightController) {
+			BigHeal* bigHeal = new BigHeal(fightController->getPlayer());
+			fightController->executeMove(bigHeal);
+			delete bigHeal;
+		}
+		});
+
+
 	auto actionSelectorUI = std::unique_ptr<ActionSelectorUI>(new ActionSelectorUI("actionSelectorUI", sf::Vector2f(_windowWidth / 2, _windowHeight - _windowHeight / 4), _windowWidth / 2, _windowHeight / 4, fightControllerintance->getPlayer()));
 	actionSelectorUI->addButton(std::move(lightAttackButton));
+	actionSelectorUI->addButton(std::move(healButton));
 
 	gameScreen->addGameObject(std::move(actionSelectorUI));
 
-
-	FightCharacter* playerInstance = &fightControllerintance->getPlayer();
-	FightCharacter* enemyInstance = &fightControllerintance->getEnemy();
-
-	auto battleLog = std::unique_ptr<BattleLog>(new BattleLog("battleLog", sf::Vector2f(0, _windowHeight - _windowHeight / 4), _windowWidth / 2, _windowHeight / 4,font));
+	auto battleLog = std::unique_ptr<BattleLog>(new BattleLog("battleLog", sf::Vector2f(0, _windowHeight - _windowHeight / 4), _windowWidth / 2, _windowHeight / 4, font));
 	fightControllerintance->addObserver(*battleLog);
-	playerInstance->addObserver(*battleLog);
-	enemyInstance->addObserver(*battleLog);
+	playerInstance->Subject<std::string>::addObserver(*battleLog);
+	enemyInstance->Subject<std::string>::addObserver(*battleLog);
 
 	gameScreen->addGameObject(std::move(battleLog));
+
+	auto fightUI = std::unique_ptr<FightUI>(new FightUI("fightUI", playerInstance, enemyInstance, sf::Vector2f(_windowWidth, _windowHeight)));
+	gameScreen->addGameObject(std::move(fightUI));
 }

@@ -6,6 +6,7 @@
 
 #include "button.hpp"
 #include "textHighliteButton.hpp"
+#include "showMoveResultButton.hpp"
 
 #include "scene.hpp"
 #include "sceneHandler.hpp"
@@ -23,12 +24,19 @@
 #include "turnDecider.hpp"
 
 #include "actionSelectorUI.hpp"
+#include "rectangleGameObject.hpp"
 #include "textZoneUI.hpp"
 
 #include "move.hpp"
 #include "attackMove.hpp"
+#include "bigHeal.hpp"
 
 #include "moveExecutor.hpp"
 #include "battleLog.hpp"
 
+#include "enemyAI.hpp"
+
+#include "healthBar.hpp"
+#include "turnIndicatorUI.hpp"
+#include "fightUI.hpp"
 

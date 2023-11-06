@@ -2,12 +2,14 @@
 #include <string>
 #include "characterData.hpp"
 #include "subject.hpp"
+#include "queueManager.hpp"
 
-class FightCharacter : public Subject<std::string>
+class FightCharacter : public Subject<std::string>, public Subject<float>
 {
 private:
+	QueueManager _queueManager;
 	CharacterData _characterData;
-	float _queuePosition = 0.0f;
+	CharacterData _originalCharacterData;
 	bool _isActive = false;
 public:
 	FightCharacter();
@@ -27,19 +29,24 @@ public:
 	int getAttack() const;
 	int getSpeed() const;
 	int getHealth() const;
+	int getMaxHealth() const;
 	std::string getName() const;
 	bool isActive() const;
 	bool isAlive() const;
 
-	void recieveDamage(float ammount);
-	void heal(float ammount);
+	void reset();
+	void recieveDamage(float amount);
+	void heal(float amount);
 
 	void startTurn();
 	void endTurn();
 	void setQueuePosition(float position);
 	float getQueuePosition() const;
 	void advanceQueuePosition(float amount);
+	void addObserverToQueueManager(Observer<float>& observer);
 
 private:
+
+	void updateHealth(float amount, const std::string message);
 
 };

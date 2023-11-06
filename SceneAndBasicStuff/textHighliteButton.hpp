@@ -27,7 +27,7 @@ public:
 	void setHighliteFillColor(const sf::Color color);
 	void setGrowFactor(const float factor);
 
-private:
+protected:
 	// Inherited via Button
 	void onClick() override;
 	void onHover() override;
