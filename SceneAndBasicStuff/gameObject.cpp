@@ -17,6 +17,21 @@ void GameObject::setPosition(const sf::Vector2f position)
 	this->position = position;
 }
 
+bool GameObject::isAlwaysActive() const
+{
+	return alwaysActive;
+}
+
+void GameObject::setAlwaysActive(const bool value)
+{
+	alwaysActive = value;
+}
+
+sf::Vector2f GameObject::getPosition() const
+{
+	return this->position;
+}
+
 std::string GameObject::getIdentifier() const {
 	return this->identifier;
 }
