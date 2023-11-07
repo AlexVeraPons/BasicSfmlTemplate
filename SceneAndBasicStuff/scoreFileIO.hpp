@@ -10,6 +10,7 @@ private:
 	std::string _scoreFilePath;
 
 public:
+	ScoreFileIO();
 	ScoreFileIO(std::string scoreFilePath);
 	~ScoreFileIO();
 

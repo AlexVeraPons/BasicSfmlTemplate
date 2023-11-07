@@ -34,6 +34,8 @@ public:
 	bool isActive() const;
 	bool isAlive() const;
 
+	void setCharacterData(CharacterData characterData);
+
 	void reset();
 	void recieveDamage(float amount);
 	void heal(float amount);

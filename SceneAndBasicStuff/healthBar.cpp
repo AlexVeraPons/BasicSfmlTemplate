@@ -51,6 +51,8 @@ void HealthBar::setOwner(FightCharacter* owner)
 
 void HealthBar::updateBar(const float& value)
 {
+	if (value > _maxHealth) { _maxHealth = value; }
+
 	_currentHealth = value;
 
 	float percentage = _currentHealth / _maxHealth;
@@ -60,7 +62,7 @@ void HealthBar::updateBar(const float& value)
 void HealthBar::updateBarColor()
 {
 	float percentage = _currentHealth / _maxHealth;
-	
+
 	if (percentage > 0.5)
 	{
 		_innerBar.setFillColor(sf::Color::Green);

@@ -110,6 +110,14 @@ bool FightCharacter::isAlive() const
 	return _characterData.stats.health > 0;
 }
 
+void FightCharacter::setCharacterData(CharacterData characterData)
+{
+	_characterData = characterData;
+	_originalCharacterData = characterData;
+	_queueManager.setQueuePosition(100 - _characterData.stats.speed);
+	Subject<float>::notifyObservers(_characterData.stats.health);
+}
+
 void FightCharacter::setQueuePosition(float position)
 {
 	_queueManager.setQueuePosition(position);

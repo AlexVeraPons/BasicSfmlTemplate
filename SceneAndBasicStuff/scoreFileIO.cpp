@@ -8,6 +8,12 @@
 #include "scoreFileIO.hpp"
 #include "scoreEntry.hpp"
 
+ScoreFileIO::ScoreFileIO()
+{
+	_scoreFilePath = "Savedata/score.txt";
+	reloadScores();
+}
+
 ScoreFileIO::ScoreFileIO(std::string scoreFilePath)
 {
 	_scoreFilePath = scoreFilePath;
@@ -45,7 +51,6 @@ void ScoreFileIO::reloadScores()
 	orderScores();
 }
 
-//check if this works when i know how to use the new pointer stuff
 void ScoreFileIO::addScore(std::string name, unsigned int score)
 {
 	_scoreEntries.push_back(new ScoreEntry(name, score));
@@ -101,7 +106,6 @@ void ScoreFileIO::orderScores()
 			return *a > *b;
 		});
 }
-
 
 void ScoreFileIO::saveScores()
 {

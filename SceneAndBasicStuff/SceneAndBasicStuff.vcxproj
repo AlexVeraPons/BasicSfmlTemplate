@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="actionSelectorUI.cpp" />
+    <ClCompile Include="assetManager.cpp" />
     <ClCompile Include="attackMove.cpp" />
     <ClCompile Include="battleLog.cpp" />
     <ClCompile Include="bigHeal.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="enemyAI.cpp" />
     <ClCompile Include="fightCharacter.cpp" />
     <ClCompile Include="fightController.cpp" />
+    <ClCompile Include="fighterFactory.cpp" />
     <ClCompile Include="fightUI.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="healthBar.cpp" />
@@ -149,6 +151,7 @@
     <ClCompile Include="scoreboard.cpp" />
     <ClCompile Include="scoreEntry.cpp" />
     <ClCompile Include="scoreFileIO.cpp" />
+    <ClCompile Include="scoreKeeper.cpp" />
     <ClCompile Include="showMoveResultButton.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="textHighlitButton.cpp" />
@@ -159,6 +162,7 @@
     <ClCompile Include="turnIndicatorUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="assetManager.hpp" />
     <ClInclude Include="attackMove.hpp" />
     <ClInclude Include="battleLog.hpp" />
     <ClInclude Include="bigHeal.hpp" />
@@ -166,6 +170,7 @@
     <ClInclude Include="enemyAI.hpp" />
     <ClInclude Include="fightCharacter.hpp" />
     <ClInclude Include="fightController.hpp" />
+    <ClInclude Include="characterFactory.hpp" />
     <ClInclude Include="fightUI.hpp" />
     <ClInclude Include="healthBar.hpp" />
     <ClInclude Include="observer.hpp" />
@@ -177,6 +182,7 @@
     <ClInclude Include="scoreEntry.hpp" />
     <ClInclude Include="scoreFileIO.hpp" />
     <ClInclude Include="characterStats.hpp" />
+    <ClInclude Include="scoreKeeper.hpp" />
     <ClInclude Include="showMoveResultButton.hpp" />
     <ClInclude Include="subject.hpp" />
     <ClInclude Include="textHighliteButton.hpp" />

@@ -10,6 +10,7 @@ const sf::Color _backgroundColor = sf::Color(128, 128, 128);
 const std::string _latoRegularFontPath = "Assets/Fonts/Lato-Regular.ttf";
 const std::string _scoreFilePath = "Savedata/score.txt";
 
+void LoadAssets();
 void SetupWindow(sf::RenderWindow& window);
 void SetupScenes(SceneHandler& handler, sf::Font& font, sf::RenderWindow& window);
 void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen, SceneHandler& handler);
@@ -27,6 +28,12 @@ int main() {
 	GameLoop(window, handler);
 
 	return 0;
+}
+
+void LoadAsets() {
+	AssetManager* assetManager = AssetManager::getInstance();
+	assetManager->loadFont("latoRegular", _latoRegularFontPath);
+	assetManager->loadScoreFile(_scoreFilePath);
 }
 
 void SetupWindow(sf::RenderWindow& window) {
@@ -111,10 +118,10 @@ void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, s
 void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen, SceneHandler& handler)
 {
 	auto quitButton = std::make_unique<TextHighliteButton>("quitButton", font, "Quit", sf::Vector2f(100, 50));
-	quitButton->setHighliteFillColor(sf::Color(150,150,150));
+	quitButton->setHighliteFillColor(sf::Color(150, 150, 150));
 	quitButton->setHighliteTextColor(sf::Color::Cyan);
 	quitButton->setOutlineColor(sf::Color(90, 90, 90));
-	quitButton->setPosition(sf::Vector2f(20,20));
+	quitButton->setPosition(sf::Vector2f(20, 20));
 	quitButton->setOnClickAction([&handler]() {
 		handler.stackScene("mainScreen");
 		});
@@ -123,7 +130,7 @@ void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen, Scene
 	CharacterData playerData;
 	playerData.name = "Player";
 	playerData.stats.attack = 10;
-	playerData.stats.health = 100;
+	playerData.stats.setHealth(10);
 	playerData.stats.maxHealth = 100;
 	playerData.stats.speed = 60;
 
@@ -132,13 +139,13 @@ void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen, Scene
 	CharacterData enemyData;
 	enemyData.name = "Enemy";
 	enemyData.stats.attack = 10;
-	enemyData.stats.health = 100;
+	enemyData.stats.setHealth(10);
 	enemyData.stats.maxHealth = 100;
 	enemyData.stats.speed = 20;
 
 	FightCharacter enemy(enemyData);
 
-	auto fightController = std::make_unique<FightController>("fightController", player, enemy);
+	auto fightController = std::make_unique<FightController>("fightController", player);
 	gameScreen->addGameObject(std::move(fightController));
 
 	FightController* fightControllerintance = dynamic_cast<FightController*>(gameScreen->getGameObject("fightController"));

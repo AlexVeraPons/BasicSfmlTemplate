@@ -65,6 +65,7 @@ void Scoreboard::refresh()
 void Scoreboard::clearScores()
 {
 	_scoreFileIO.clearScores();
+	_scoreEntries.clear();
 	refresh();
 }
 

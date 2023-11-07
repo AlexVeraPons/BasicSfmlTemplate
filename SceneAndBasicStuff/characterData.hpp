@@ -9,6 +9,7 @@ struct CharacterData
 	CharacterStats stats;
 
 	CharacterData();
+	CharacterData(std::string name ,CharacterStats stats);
 	CharacterData(std::string name, sf::Sprite sprite, CharacterStats stats);
 	/*
 		 @param name The name of the character.

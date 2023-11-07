@@ -5,12 +5,12 @@
 #include "turnDecider.hpp"
 #include "move.hpp"
 
-FightController::FightController(std::string identifier, FightCharacter player, FightCharacter enemy)
+FightController::FightController(std::string identifier, FightCharacter player)
 	: _player(std::make_unique<FightCharacter>(player)),
-	_enemy(std::make_unique<FightCharacter>(enemy)),
-	turnDecider(*_player, *_enemy),
+	_enemy(std::make_unique<FightCharacter>(_characterFactory(1))),
+	_turnDecider(*_player, *_enemy),
 	GameObject(identifier),
-	enemyAi(_enemy, _player) { }
+	_enemyAi(_enemy, _player) { }
 
 FightController::~FightController() { }
 
@@ -18,12 +18,12 @@ FightController::FightController(const FightController& other)
 {
 	_player = std::make_unique<FightCharacter>(*other._player);
 	_enemy = std::make_unique<FightCharacter>(*other._enemy);
-	turnDecider = other.turnDecider;
+	_turnDecider = other._turnDecider;
 }
 
 FightCharacter& FightController::getActiveFighter() const
 {
-	return *activeFighter;
+	return *_activeFighter;
 }
 
 FightCharacter& FightController::getEnemy() const
@@ -55,59 +55,75 @@ void FightController::update()
 {
 	if (aiMovePending && aiTimer.getElapsedTime() >= aiDelay) {
 		aiMovePending = false; // Reset the flag
-		enemyAi.executeMove(*this);
+		_enemyAi.executeMove(*this);
 	}
 }
 void FightController::reset()
 {
 	_player->reset();
 	_enemy->reset();
+	_currentRound = 0;
+	_currentDifficulty = 1;
+	_scoreKeeper.resetScore();
 	nextTurn();
 }
 void FightController::executeMove(Move* move)
 {
-	notifyObservers(activeFighter->getName() + " used " + move->getName());
+	notifyObservers(_activeFighter->getName() + " used " + move->getName());
 
 	(*move)();
-	activeFighter->endTurn();
+	_activeFighter->endTurn();
 
 	if (!_player->isAlive())
 	{
-		printf("you lost");
 		lose();
 		return;
 	}
 	else if (!_enemy->isAlive())
 	{
-		printf("you won");
 		win();
 		return;
 	}
 
 	nextTurn();
-
 }
 
 void FightController::nextTurn()
 {
-	turnDecider.nextTurn();
-	activeFighter = &turnDecider.getTurnCharacter();
-	activeFighter->startTurn();
+	_turnDecider.nextTurn();
+	_activeFighter = &_turnDecider.getTurnCharacter();
+	_activeFighter->startTurn();
 
-	printf("%s's turn\n", activeFighter->getName().c_str());
-
-	if (enemyAi.getFighterName() == activeFighter->getName()) {
+	if (_enemyAi.getFighterName() == _activeFighter->getName()) {
 		aiMovePending = true;
 		aiTimer.restart();
 	}
+
+}
+
+void FightController::nextFight()
+{
+	notifyObservers("NEXT FIGHT");
+
+	_currentRound++;
+	_currentDifficulty = (_currentRound / 2) + 1;
+
+	_enemy->setCharacterData(_characterFactory(_currentDifficulty));
+
+
+	nextTurn();
 }
 
 void FightController::win()
 {
 	notifyObservers("YOU WON!");
+	_scoreKeeper.addScore(_currentDifficulty * 10);
+	nextFight();
 }
 
 void FightController::lose()
 {
-	notifyObservers("YOU WON!");
+	notifyObservers("YOU LOST!");
+	_scoreKeeper.saveScore();
+	_scoreKeeper.resetScore();
 }
