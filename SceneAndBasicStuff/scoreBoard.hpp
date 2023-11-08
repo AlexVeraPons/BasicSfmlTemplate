@@ -13,17 +13,14 @@ private:
 	float const _scoreboardTextOffset = 50;
 	sf::Font& _font;
 	ScoreFileIO _scoreFileIO; //update when i get the next lesson on smart pointers
-	std::vector<ScoreEntry*> _scoreEntries;
+	std::vector<ScoreEntry*> _scoreEntityEntries;
 public:
-	Scoreboard(std::string identifier, sf::Vector2f position, std::string scoreFilePath,sf::Font& font); 
+	Scoreboard(std::string identifier, sf::Vector2f position,sf::Font& font); 
 	~Scoreboard();
 
 public:
 	// Inherited via GameObject
 	void start() override;
-	void update() override;
-	void handleEvent(const sf::Event& event, sf::RenderWindow& window);
-	void onDisable() override;
 	void render(sf::RenderWindow& window) override;
 	void refresh();
 	void clearScores();

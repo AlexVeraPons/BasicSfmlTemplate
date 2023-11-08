@@ -20,8 +20,10 @@ void GameLoop(sf::RenderWindow& window, SceneHandler& handler);
 int main() {
 	sf::RenderWindow window;
 	SceneHandler handler;
-	sf::Font font;
-	font.loadFromFile(_latoRegularFontPath);
+
+	LoadAssets();
+
+	sf::Font font = AssetManager::getInstance()->getFont("latoRegular");
 
 	SetupWindow(window);
 	SetupScenes(handler, font, window);
@@ -30,7 +32,7 @@ int main() {
 	return 0;
 }
 
-void LoadAsets() {
+void LoadAssets() {
 	AssetManager* assetManager = AssetManager::getInstance();
 	assetManager->loadFont("latoRegular", _latoRegularFontPath);
 	assetManager->loadScoreFile(_scoreFilePath);
@@ -73,7 +75,7 @@ void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, s
 	sf::Vector2f mainScreenButtonsize(200, 100);
 
 	// scoreboard
-	auto scoreboard = std::make_unique<Scoreboard>("scoreboard", sf::Vector2f(_windowWidth - _windowWidth / 6, _windowHeight / 4), _scoreFilePath, font);
+	auto scoreboard = std::make_unique<Scoreboard>("scoreboard", sf::Vector2f(_windowWidth - _windowWidth / 6, _windowHeight / 4), font);
 	mainScreen->addGameObject(std::move(scoreboard));
 
 	// play button
@@ -118,10 +120,10 @@ void SetupMainScreen(sf::Font& font, Scene* mainScreen, SceneHandler& handler, s
 void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen, SceneHandler& handler)
 {
 	auto quitButton = std::make_unique<TextHighliteButton>("quitButton", font, "Quit", sf::Vector2f(100, 50));
-	quitButton->setHighliteFillColor(sf::Color(150, 150, 150));
+	quitButton->setHighliteFillColor(sf::Color(150,150,150));
 	quitButton->setHighliteTextColor(sf::Color::Cyan);
 	quitButton->setOutlineColor(sf::Color(90, 90, 90));
-	quitButton->setPosition(sf::Vector2f(20, 20));
+	quitButton->setPosition(sf::Vector2f(20,20));
 	quitButton->setOnClickAction([&handler]() {
 		handler.stackScene("mainScreen");
 		});

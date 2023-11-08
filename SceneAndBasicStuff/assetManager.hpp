@@ -25,6 +25,9 @@ public:
 		return _instance;
 	}
 
+	AssetManager(AssetManager const&) = delete;
+void operator=(AssetManager const&) = delete;
+
 	void loadTexture(std::string identifier, std::string filePath);
 	void loadFont(std::string identifier, std::string filePath);
 	void loadScoreFile(std::string filePath);

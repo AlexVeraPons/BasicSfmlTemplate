@@ -1,6 +1,6 @@
 #include "assetManager.hpp"
 
-AssetManager::AssetManager() : _scoreFilePath("") { }
+AssetManager* AssetManager::_instance = nullptr;
 
 AssetManager::~AssetManager() { }
 

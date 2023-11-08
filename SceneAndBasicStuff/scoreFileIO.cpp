@@ -5,12 +5,13 @@
 #include <iostream>
 #include <sstream>
 
+#include "assetManager.hpp"
 #include "scoreFileIO.hpp"
 #include "scoreEntry.hpp"
 
 ScoreFileIO::ScoreFileIO()
 {
-	_scoreFilePath = "Savedata/score.txt";
+	_scoreFilePath = AssetManager::getInstance()->getScoreFilePath();
 	reloadScores();
 }
 
@@ -26,7 +27,7 @@ void ScoreFileIO::reloadScores()
 {
 	clearScoreList();
 
-	std::ifstream file("Savedata/score.txt"); //TODO: Make this go back to _scoreFilePath and check while the second time it gets called its empty
+	std::ifstream file(_scoreFilePath); //TODO: Make this go back to _scoreFilePath and check while the second time it gets called its empty
 	std::string line;
 
 	if (!file.is_open()) {
@@ -53,9 +54,14 @@ void ScoreFileIO::reloadScores()
 
 void ScoreFileIO::addScore(std::string name, unsigned int score)
 {
+	//add the score at the end of the gile 
+	std::ofstream file(_scoreFilePath, std::ios_base::app);
+	file << name << " " << score << std::endl;
+	file.close();
+
+	//add the score to the score list
 	_scoreEntries.push_back(new ScoreEntry(name, score));
 	orderScores();
-	saveScores();
 }
 
 
@@ -115,12 +121,15 @@ void ScoreFileIO::saveScores()
 
 	for (int i = 0; i < _scoreEntries.size(); i++)
 	{
-		std::cout << "Saving score: " << *_scoreEntries[i] << std::endl;
 		*_scoreFile << *_scoreEntries[i] << std::endl;
 	}
 }
 
 void ScoreFileIO::clearScoreList() //TODO: Make sure this is needed for garbage collection
 {
+	for (int i = 0; i < _scoreEntries.size(); i++)
+	{
+		delete _scoreEntries[i];
+	}
 	_scoreEntries.clear();
 }
