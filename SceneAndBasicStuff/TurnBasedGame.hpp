@@ -31,6 +31,8 @@
 #include "move.hpp"
 #include "attackMove.hpp"
 #include "bigHeal.hpp"
+#include "doNothingMove.hpp"
+#include "lightAttack.hpp"
 
 #include "moveExecutor.hpp"
 #include "battleLog.hpp"
@@ -40,4 +42,6 @@
 #include "healthBar.hpp"
 #include "turnIndicatorUI.hpp"
 #include "fightUI.hpp"
+
+#include "image.hpp"
 

@@ -15,11 +15,6 @@ ScoreFileIO::ScoreFileIO()
 	reloadScores();
 }
 
-ScoreFileIO::ScoreFileIO(std::string scoreFilePath)
-{
-	_scoreFilePath = scoreFilePath;
-	reloadScores();
-}
 
 ScoreFileIO::~ScoreFileIO() { }
 
@@ -27,7 +22,7 @@ void ScoreFileIO::reloadScores()
 {
 	clearScoreList();
 
-	std::ifstream file(_scoreFilePath); //TODO: Make this go back to _scoreFilePath and check while the second time it gets called its empty
+	std::ifstream file(_scoreFilePath);
 	std::string line;
 
 	if (!file.is_open()) {

@@ -11,7 +11,6 @@ private:
 
 public:
 	ScoreFileIO();
-	ScoreFileIO(std::string scoreFilePath);
 	~ScoreFileIO();
 
 public:
