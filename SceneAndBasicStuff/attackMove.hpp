@@ -7,7 +7,7 @@
 
 class AttackMove : public Move
 {
-private:
+protected:
 	FightCharacter* _dealer;
 	FightCharacter* _target;
 

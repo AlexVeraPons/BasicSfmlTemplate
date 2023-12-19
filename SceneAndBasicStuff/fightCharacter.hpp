@@ -46,6 +46,7 @@ public:
 	float getQueuePosition() const;
 	void advanceQueuePosition(float amount);
 	void addObserverToQueueManager(Observer<float>& observer);
+	void resetQueuePosition();
 
 private:
 

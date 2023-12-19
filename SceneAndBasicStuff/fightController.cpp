@@ -103,13 +103,14 @@ void FightController::nextTurn()
 
 void FightController::nextFight()
 {
+	
 	notifyObservers("NEXT FIGHT");
+	_player->resetQueuePosition();
 
 	_currentRound++;
 	_currentDifficulty = (_currentRound / 2) + 1;
 
 	_enemy->setCharacterData(_characterFactory(_currentDifficulty));
-
 
 	nextTurn();
 }

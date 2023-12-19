@@ -10,7 +10,7 @@ const std::string HeavyAttack::getName()
 
 const float HeavyAttack::getEffectValue()
 {
-	return _dealer.getAttack() * 1.5 + 10;
+	return _dealer->getAttack() * 1.5 + 10;
 }
 
 const float HeavyAttack::getCost()

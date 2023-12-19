@@ -18,6 +18,7 @@ protected:
 	std::string buttonText;
 	bool startedHovering = false;
 
+
 	buttonAction action;
 
 public:

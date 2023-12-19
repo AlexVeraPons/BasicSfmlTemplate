@@ -8,7 +8,7 @@ class BigHeal : public Move
 	FightCharacter* _dealer;
 
 	float _moveCost = 30;
-	float _effectValue = 30;
+	float _effectValue = 15;
 	public:
 		BigHeal();
 		BigHeal(FightCharacter& dealer);

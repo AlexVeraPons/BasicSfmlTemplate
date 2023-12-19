@@ -135,6 +135,7 @@
     <ClCompile Include="button.cpp" />
     <ClCompile Include="characterData.cpp" />
     <ClCompile Include="characterStats.cpp" />
+    <ClCompile Include="doNothingMove.cpp" />
     <ClCompile Include="enemyAI.cpp" />
     <ClCompile Include="fightCharacter.cpp" />
     <ClCompile Include="fightController.cpp" />
@@ -142,6 +143,9 @@
     <ClCompile Include="fightUI.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="healthBar.cpp" />
+    <ClCompile Include="heavyAttack.cpp" />
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="lightAttack.cpp" />
     <ClCompile Include="move.cpp" />
     <ClCompile Include="queueManager.cpp" />
     <ClCompile Include="rectangleGameObject.cpp" />
@@ -167,12 +171,16 @@
     <ClInclude Include="battleLog.hpp" />
     <ClInclude Include="bigHeal.hpp" />
     <ClInclude Include="characterData.hpp" />
+    <ClInclude Include="doNothingMove.hpp" />
     <ClInclude Include="enemyAI.hpp" />
     <ClInclude Include="fightCharacter.hpp" />
     <ClInclude Include="fightController.hpp" />
     <ClInclude Include="characterFactory.hpp" />
     <ClInclude Include="fightUI.hpp" />
     <ClInclude Include="healthBar.hpp" />
+    <ClInclude Include="heavyAttack.hpp" />
+    <ClInclude Include="image.hpp" />
+    <ClInclude Include="lightAttack.hpp" />
     <ClInclude Include="observer.hpp" />
     <ClInclude Include="main.h" />
     <ClInclude Include="move.hpp" />

@@ -1,4 +1,5 @@
 #include "assetManager.hpp"
+#include <iostream>
 
 AssetManager* AssetManager::_instance = nullptr;
 

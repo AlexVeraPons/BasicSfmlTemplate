@@ -7,20 +7,19 @@
 #include "fightController.hpp"
 #include "doNothingMove.hpp"
 #include "lightAttack.hpp"
-
+#include "bigHeal.hpp"
 EnemyAI::EnemyAI() : _controlledFighter(), _target()
 {
 	_moves[0] = new AttackMove(*_controlledFighter, *_target);
-	_moves[1] = new AttackMove(*_controlledFighter, *_target);
-	_moves[2] = new LightAttack(*_controlledFighter, *_target);
-	_moves[3] = new AttackMove(*_controlledFighter, *_target);
+	_moves[1] = new BigHeal(*_controlledFighter);
+	_moves[2] = new DoNothingMove(*_controlledFighter);
+	_moves[3] = new LightAttack(*_controlledFighter, *_target);
 }
-
 EnemyAI::EnemyAI(std::shared_ptr<FightCharacter> fighter, std::shared_ptr<FightCharacter> target) : _controlledFighter(fighter), _target(target)
 {
 	_moves[0] = new AttackMove(*_controlledFighter, *_target);
-	_moves[1] = new AttackMove(*_controlledFighter, *_target);
-	_moves[2] = new AttackMove(*_controlledFighter, *_target);
+	_moves[1] = new BigHeal(*_controlledFighter);
+	_moves[2] = new DoNothingMove(*_controlledFighter);
 	_moves[3] = new LightAttack(*_controlledFighter, *_target);
 }
 

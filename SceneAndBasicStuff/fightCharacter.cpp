@@ -137,3 +137,8 @@ void FightCharacter::addObserverToQueueManager(Observer<float>& observer)
 {
 	_queueManager.addObserver(observer);
 }
+
+void FightCharacter::resetQueuePosition()
+{
+	_queueManager.setQueuePosition(100 - _characterData.stats.speed);
+}

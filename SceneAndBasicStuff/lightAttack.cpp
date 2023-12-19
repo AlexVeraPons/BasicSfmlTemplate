@@ -11,7 +11,7 @@ const std::string LightAttack::getName()
 
 const float LightAttack::getEffectValue()
 {
-	return _dealer.getAttack() * 0.5 + 5;
+	return _dealer->getAttack() * 0.5 + 5;
 }
 
 const float LightAttack::getCost()

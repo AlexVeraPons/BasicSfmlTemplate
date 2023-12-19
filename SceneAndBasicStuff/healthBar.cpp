@@ -47,6 +47,7 @@ void HealthBar::setOwner(FightCharacter* owner)
 {
 	_maxHealth = owner->getMaxHealth();
 	_currentHealth = owner->getHealth();
+	if(_currentHealth > _maxHealth) { _maxHealth = _currentHealth; }
 }
 
 void HealthBar::updateBar(const float& value)

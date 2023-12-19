@@ -33,6 +33,7 @@
 #include "bigHeal.hpp"
 #include "doNothingMove.hpp"
 #include "lightAttack.hpp"
+#include "heavyAttack.hpp"
 
 #include "moveExecutor.hpp"
 #include "battleLog.hpp"

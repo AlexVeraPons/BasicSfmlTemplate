@@ -4,6 +4,7 @@
 #include "turnIndicatorUI.hpp"
 #include "fightCharacter.hpp"
 #include "SFML/Graphics.hpp"
+#include "image.hpp"
 
 class FightUI : public GameObject
 {
@@ -11,13 +12,11 @@ private:
 	HealthBar _healthBar1;
 	HealthBar _healthBar2;
 
-	sf::CircleShape _playerindicator1;
-	sf::CircleShape _playerindicator2;
+	Image _player;
+	Image _enemy;
 
 	TurnIndicatorUI _turnIndicatorUI;
 	
-	sf::RectangleShape _floor;
-
 public:
 	FightUI();
 	FightUI(std::string identifier, FightCharacter* fighter1, FightCharacter* fighter, sf::Vector2f windowSize);

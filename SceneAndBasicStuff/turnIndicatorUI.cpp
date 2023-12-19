@@ -12,13 +12,13 @@ TurnIndicatorUI::TurnIndicatorUI() : GameObject("TurnIndicatorUI", sf::Vector2f(
 
 	_entity1Indicator = std::make_unique<TurnIndicatorEntityUI>(
 		sf::Vector2f(position.x + _rectBackground.getSize().x, position.y + (_rectBackground.getSize().y / 2)),
-		sf::Color::Blue,
+		sf::Color(50,200,50),
 		this
 	);
 
 	_entity2Indicator = std::make_unique<TurnIndicatorEntityUI>(
 		sf::Vector2f(position.x, position.y + (_rectBackground.getSize().y / 2)),
-		sf::Color::Red,
+		sf::Color(200,50,50),
 		this
 	);
 }

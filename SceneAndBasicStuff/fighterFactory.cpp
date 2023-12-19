@@ -37,6 +37,6 @@ CharacterStats CharacterFactory::getRandomStats(uint difficultyLevel)
 	int modifier = (difficultyLevel < CharacterStats()._maxStatValue) ? difficultyLevel : CharacterStats()._maxStatValue;
 	int attack = rand() % 10 + difficultyLevel;
 	int health = rand() % 10 + (difficultyLevel + 5);
-	int speed = rand() % 10 + difficultyLevel;
+	int speed = rand() % 10 + difficultyLevel + 3;
 	return CharacterStats(attack, speed, health);
 }
