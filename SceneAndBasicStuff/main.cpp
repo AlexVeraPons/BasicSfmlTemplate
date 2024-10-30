@@ -211,11 +211,23 @@ void SetupGameScreen(Scene* gameScreen, sf::Font& font, Scene* mainScreen, Scene
 		}
 		});
 
+	auto lifeStealAttackButton = std::unique_ptr<ShowMoveResultButton>(new ShowMoveResultButton("LifeSteal", font, "LifeSteal", sf::Vector2f(_windowWidth / 4, _windowHeight / 4), playerInstance, HeavyAttack().getCost()));
+	lifeStealAttackButton->setHighliteFillColor(sf::Color(100, 100, 100, 100));
+	lifeStealAttackButton->setGrowFactor(1);
+	lifeStealAttackButton->setOnClickAction([gameScreen]() {
+		FightController* fightController = dynamic_cast<FightController*>(gameScreen->getGameObject("fightController"));
+		if (fightController) {
+			LifeStealMove* lifeStealAttack = new LifeStealMove(fightController->getPlayer(), fightController->getEnemy());
+			fightController->executeMove(lifeStealAttack);
+			delete lifeStealAttack;
+		}
+		});
 
 	auto actionSelectorUI = std::unique_ptr<ActionSelectorUI>(new ActionSelectorUI("actionSelectorUI", sf::Vector2f(_windowWidth / 2, _windowHeight - _windowHeight / 4), _windowWidth / 2, _windowHeight / 4, fightControllerintance->getPlayer()));
 	actionSelectorUI->addButton(std::move(lightAttackButton));
 	actionSelectorUI->addButton(std::move(healButton));
 	actionSelectorUI->addButton(std::move(heavyAttackButton));
+	actionSelectorUI->addButton(std::move(lifeStealAttackButton));
 
 	gameScreen->addGameObject(std::move(actionSelectorUI));
 

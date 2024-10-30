@@ -34,6 +34,7 @@
 #include "doNothingMove.hpp"
 #include "lightAttack.hpp"
 #include "heavyAttack.hpp"
+#include "LifeStealMove.hpp"
 
 #include "moveExecutor.hpp"
 #include "battleLog.hpp"

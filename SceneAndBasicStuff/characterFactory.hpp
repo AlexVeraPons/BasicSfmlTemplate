@@ -20,7 +20,7 @@ public:
 private:
 	CharacterData createFighter(std::string name, uint hp, uint attack, uint speed, uint health);
 	CharacterData createFighter(std::string name, uint difficultyLevel);
-
 	CharacterStats getRandomStats(uint difficultyLevel);
 };
+
 
